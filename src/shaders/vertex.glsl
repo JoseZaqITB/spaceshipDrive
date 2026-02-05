@@ -2,6 +2,8 @@ uniform float uTime;
 uniform float uVelocity;
 uniform float uDepth;
 
+attribute float size;
+
 void main() {
     vec3 newPosition = position;
     // move to z direction
@@ -11,6 +13,16 @@ void main() {
     newPosition.z = mod(newPosition.z, uDepth) - uDepth * 0.7;
 
     //
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-    gl_PointSize = 1.0;
+    vec4 viewPosition = viewMatrix * modelMatrix * vec4(newPosition, 1.0);
+    gl_Position = projectionMatrix * viewPosition;
+
+    /**
+    * sizes
+    */
+    gl_PointSize =  /**
+    * sizes
+    */
+    gl_PointSize = size * 100.0;
+    // perspective sizes
+    gl_PointSize *= ( 1.0 / - viewPosition.z );
 }

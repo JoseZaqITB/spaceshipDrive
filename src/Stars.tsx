@@ -1,9 +1,10 @@
-/* eslint-disable react-hooks/purity */
+ 
 import { Point, Points, shaderMaterial } from "@react-three/drei";
 import vertexShader from "./shaders/vertex.glsl";
 import fragmentShader from "./shaders/fragment.glsl";
 import { extend, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
+import { AdditiveBlending } from "three";
 
 const StarMaterial = shaderMaterial(
     {
@@ -12,19 +13,26 @@ const StarMaterial = shaderMaterial(
         uDepth: 100,
     },
     vertexShader,
-    fragmentShader
+    fragmentShader,
+    (material) => {
+        if(material){
+            material.depthWrite = false;
+            material.blending = AdditiveBlending;
+        }
+    }
 );
 
 extend({ StarMaterial })
 
-export default function Stars({ count = 1000, radius = 5, depth = 20 }) {
+export default function Stars({ count = 1000, radius = 5, depth = 20, maxSize = 4, velocity = 10 }) {
     const starMaterial = useRef(null);
 
     useEffect(() => {
         if(starMaterial.current) {
             starMaterial.current.uDepth = depth;
+            starMaterial.current.uVelocity = velocity;
         }
-    },[depth])
+    },[depth, velocity])
 
     useFrame((state) => {
         if (starMaterial.current) {
@@ -44,7 +52,7 @@ export default function Stars({ count = 1000, radius = 5, depth = 20 }) {
                     (-0.7 + Math.random() )  * depth // 0.7 -> get more on the negative values than positive values
                 ]}
                 color="white"
-                size={0.5}
+                size={(Math.random() + 1) / 2 * maxSize}
             />
         })}
     </Points>

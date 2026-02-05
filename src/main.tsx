@@ -8,7 +8,7 @@ import { Canvas } from '@react-three/fiber'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Canvas 
-    camera={{ position: [2, 0, 4], far: 1000 } }
+    camera={{ position: [2, 0, 4], far: 100 } }
     onCreated={({camera}) => camera.lookAt(0,0,-20)}
     >
       <Experience />
