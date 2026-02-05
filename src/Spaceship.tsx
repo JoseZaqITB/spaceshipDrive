@@ -1,8 +1,14 @@
 import { useGLTF } from "@react-three/drei";
-import  { type ThreeElements } from "@react-three/fiber";
+import  { useFrame, type ThreeElements } from "@react-three/fiber";
 
-export default function Spaceship(props: ThreeElements["mesh"]) {
+type SpaceshipProps = ThreeElements["mesh"] & {velocity: number}
+
+export default function Spaceship({velocity = 0.2,...props}: SpaceshipProps) {
     const spaceship = useGLTF('/models/spaceship.glb');
+    useFrame((_, delta) => {   
+        spaceship.nodes.rotorBack.rotation.x -= velocity * delta;
+        spaceship.nodes.rotorFront.rotation.x += velocity *  delta;
+    });
     
     return <primitive {...props} object={spaceship.scene} scale={0.5} />;
 }
