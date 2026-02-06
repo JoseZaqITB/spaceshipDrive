@@ -5,10 +5,11 @@ import { Suspense, useRef, useState } from "react"
 import { Perf } from "r3f-perf"
 import { DirectionalLightHelper } from "three"
 import { useControls } from "leva"
+import { useFrame } from "@react-three/fiber"
 
 
 function Experience() {
-  const [velocity, setVelocity] = useState(0.2);
+  const [velocity, setVelocity] = useState(0.02);
   const directionalLight = useRef(null);
 
   // debug
@@ -18,7 +19,8 @@ function Experience() {
     samples: 20,
     focus: 0,
   });
-  useHelper(directionalLight, DirectionalLightHelper, 1);
+  /* useHelper(directionalLight, DirectionalLightHelper, 1); */
+  //
   return (
     <>
     <Perf position="top-left" />
@@ -48,8 +50,8 @@ function Experience() {
     {/* meshes */}
     <Suspense>
      {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
-      <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0,0,0]} velocity={velocity} />
-      <Stars count={1000} radius={10} depth={300} velocity={velocity} />
+      <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0,0,0]} velocity={velocity} acceleration={1/3} />
+      <Stars count={1000} radius={2} depth={50} velocity={velocity} maxSize={2} />
     </Suspense>
     {/* Shaders */}
 

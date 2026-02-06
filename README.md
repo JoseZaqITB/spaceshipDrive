@@ -78,5 +78,6 @@ export default defineConfig([
 
 - create shadows
 - optimize shadows
+- adjust stars
 - space key for powering
 - camera shake
