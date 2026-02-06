@@ -81,3 +81,6 @@ export default defineConfig([
 - adjust stars
 - space key for powering
 - camera shake
+
+- randomize star position
+- when space is pressup start aceleration from initial value

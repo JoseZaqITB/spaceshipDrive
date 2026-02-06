@@ -7,7 +7,7 @@ attribute float size;
 void main() {
     vec3 newPosition = position;
     // move to z direction
-    newPosition.z += uTime * uVelocity * 5.0;
+    newPosition.z += uTime * uVelocity;
     
     // reset position when it passes z >= 3
     newPosition.z = mod(newPosition.z, uDepth) - uDepth * 0.7;

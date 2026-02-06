@@ -1,12 +1,12 @@
 import { useGLTF, useKeyboardControls } from "@react-three/drei";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { useRef } from "react";
+import { globals } from "./utils";
 
 type SpaceshipProps = ThreeElements["group"] & { velocity?: number, acceleration?: number }
 
-const maxVelocity = 25;
 
-export default function Spaceship({ velocity: initialVelocity = 0.2, acceleration = 1/100, ...props }: SpaceshipProps) {
+export default function Spaceship({ velocity: initialVelocity = 0.2, acceleration = globals.DEFAULT_ACCELERATION, ...props }: SpaceshipProps) {
 
   const { nodes } = useGLTF('/models/spaceship_V2.glb');
 
@@ -24,7 +24,7 @@ export default function Spaceship({ velocity: initialVelocity = 0.2, acceleratio
     const { powerUp } = getKeys();
     // power up feature
     if (powerUp){
-      velocity.current += (maxVelocity - velocity.current ) * acceleration * delta;
+      velocity.current += (globals.MAXVELOCITY - velocity.current ) * acceleration * delta;
     } else {
       velocity.current += (initialVelocity - velocity.current ) * acceleration * delta;
     }

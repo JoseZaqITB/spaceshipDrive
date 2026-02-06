@@ -7,9 +7,8 @@ import { DirectionalLightHelper } from "three"
 import { useControls } from "leva"
 import { useFrame } from "@react-three/fiber"
 
-
+const velocity = 0.2;
 function Experience() {
-  const [velocity, setVelocity] = useState(0.02);
   const directionalLight = useRef(null);
 
   // debug
@@ -50,8 +49,8 @@ function Experience() {
     {/* meshes */}
     <Suspense>
      {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
-      <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0,0,0]} velocity={velocity} acceleration={1/3} />
-      <Stars count={1000} radius={2} depth={50} velocity={velocity} maxSize={2} />
+      <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0,0,0]} velocity={velocity} acceleration={1/2} />
+      <Stars count={1000} radius={2} depth={50} velocity={velocity} maxSize={2} acceleration={1/2} />
     </Suspense>
     {/* Shaders */}
 
