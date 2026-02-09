@@ -7,13 +7,18 @@ import { DirectionalLightHelper, MathUtils } from "three"
 import { useControls } from "leva"
 import { useFrame } from "@react-three/fiber"
 import { globals } from "./utils"
+import useGame from "./stores/useGame";
 
 const initialVelocity = 0.2;
 const acceleration = 1/2;
 
 function Experience() {
   const directionalLight = useRef(null);
-
+  // store
+  const phase = useGame((state) => state.phase);
+  const timer = useGame((state) => state.timer);
+  const setPhase = useGame((state) => state.setPhase);
+  const setTimer = useGame((state) => state.setTimer);
   // debug
   const debugObject = useControls({
     sunPosition: [2, 1, 3],
@@ -58,6 +63,16 @@ function Experience() {
     )
 
     shake.current.setIntensity(smoothed)
+
+    // PHASE MANAGE
+    if(velocity.current >= globals.MAXVELOCITY - 1 && phase === "driving") {
+      setPhase("passing"); // iniciar imagen de agujero de gusano
+      setTimer(Date.now()); // iniciar contador
+    }
+
+    if(velocity.current >= globals.MAXVELOCITY - 1 && phase === "passing" && (Date.now() - timer) >= 1000) {
+      setPhase("end"); // para cambiar de scena 
+    }
   })
   //
   return (
@@ -92,6 +107,13 @@ function Experience() {
         <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} velocity={initialVelocity} acceleration={acceleration} />
         <Stars count={1000} radius={2} depth={50} velocity={initialVelocity} maxSize={2} acceleration={acceleration} />
       </Suspense>
+
+      {phase === "passing" &&
+        <mesh>
+          <boxGeometry />
+          <meshBasicMaterial />
+        </mesh>
+        }
       {/* Shaders */}
 
     </>
