@@ -1,9 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Experience from './Experience.tsx'
 import { Canvas } from '@react-three/fiber'
 import { KeyboardControls } from '@react-three/drei'
+import SceneManager from './SceneManager.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
         gl={{ antialias: true }}
         onCreated={({ camera }) => camera.lookAt(0, 0, -20)}
       >
-        <Experience />
+        <SceneManager />
       </Canvas>
     </KeyboardControls>
   </StrictMode>,
