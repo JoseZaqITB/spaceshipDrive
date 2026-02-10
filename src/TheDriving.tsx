@@ -1,4 +1,4 @@
-import { OrbitControls, Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
+import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
 import Spaceship from "./Spaceship"
 import Stars from "./Stars"
 import { Suspense, useRef, useState } from "react"
@@ -12,7 +12,7 @@ import useGame from "./stores/useGame";
 const initialVelocity = 0.2;
 const acceleration = 1/2;
 
-function Experience() {
+function TheDriving() {
   const directionalLight = useRef(null);
   // store
   const phase = useGame((state) => state.phase);
@@ -77,11 +77,9 @@ function Experience() {
   //
   return (
     <>
-      <Perf position="top-left" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
       <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />
-      <OrbitControls />
       {/* Lights and shadows */}
       <SoftShadows size={debugObject.size} samples={debugObject.samples} focus={debugObject.focus} />
       <directionalLight
@@ -120,4 +118,4 @@ function Experience() {
   )
 }
 
-export default Experience
+export default TheDriving
