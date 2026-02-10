@@ -2,15 +2,21 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { useLayoutEffect, useRef } from "react";
 import type { Mesh } from "three";
 
-export default function FadedTransition({delay = 1, fadeDuration = 1}: {delay?: number, fadeDuration?: number}) {
+export default function FadedTransition({delay = 1, fadeDuration = 0, setTransition}: {delay?: number, fadeDuration?: number, setTransition: (bool:boolean) => void }) {
     // faded feature
     const plane = useRef<Mesh>(null!);
     const timer = useRef(0);
     useFrame((_,delta) => {
-        if(timer.current >= delay)
-            plane.current.material.opacity -= Math.max(1/fadeDuration * delta, 0);
         // update timer
         timer.current += delta;
+        // verify delay
+        if(timer.current <= delay) return;
+        // update opacity
+        plane.current.material.opacity -= Math.max(1/fadeDuration * delta, 0);
+        // finish transition
+        if( fadeDuration === 0 || plane.current.material.opacity <= 0) {
+            setTransition(false);
+        }
     } );
 
     // start position 
@@ -26,6 +32,6 @@ export default function FadedTransition({delay = 1, fadeDuration = 1}: {delay?: 
 
     return <mesh ref={plane}>
         <planeGeometry args={[1,1,1,1]}  />
-        <meshBasicMaterial color={"cyan"} opacity={1} transparent />
+        <meshBasicMaterial color={"black"} opacity={1} transparent />
     </mesh>
 }
