@@ -1,4 +1,4 @@
-import type { Object3DNode } from "three/webgpu"
+/* import type { Object3DNode } from "three/webgpu" */
 
 declare module '*.glsl' {
   const source: string

@@ -1,14 +1,14 @@
 import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
 import Spaceship from "./Spaceship"
 import Stars from "./Stars"
-import { Suspense, useLayoutEffect, useRef, useState } from "react"
-import { Perf } from "r3f-perf"
+import { Suspense, useLayoutEffect, useRef } from "react"
 import { DirectionalLightHelper, MathUtils } from "three"
 import { useControls } from "leva"
 import { useFrame } from "@react-three/fiber"
 import { globals } from "./utils"
 import useGame from "./stores/useGame";
 import SpaceDistorsion from "./SpaceDistorsion"
+import WormHole from "./WormHole"
 
 const initialVelocity = 0.2;
 const acceleration = 1/2;
@@ -26,9 +26,10 @@ function TheDriving() {
     size: 10,
     samples: 20,
     focus: 0,
+    wormHolePosition: [0,0,-7],
   });
   /* useHelper(directionalLight, DirectionalLightHelper, 1); */
-
+  
   // shake animation
   const shake = useRef<ShakeController>(null);
   const velocity = useGame((state) => state.velocity);
@@ -100,19 +101,13 @@ function TheDriving() {
       {/* meshes */}
       <Suspense>
         {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
-        <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} velocity={initialVelocity} acceleration={acceleration} />
-        <Stars position={[0,0,-20]} count={500} radius={2} depth={25} velocity={initialVelocity} maxSize={2} acceleration={acceleration} />
+        <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} />
+        <Stars position={[0,0,-20]} count={500} radius={2} depth={25} />
       </Suspense>
         <SpaceDistorsion/>
 
-      {phase === "passing" &&
-        <mesh>
-          <boxGeometry />
-          <meshBasicMaterial />
-        </mesh>
-        }
-      {/* Shaders */}
-
+      {phase === "passing" && <WormHole position={debugObject.wormHolePosition} />}
+  
     </>
   )
 }

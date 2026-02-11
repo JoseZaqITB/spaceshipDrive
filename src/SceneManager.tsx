@@ -16,8 +16,8 @@ export default function SceneManager() {
 
     return <>
         <Perf position="top-left" />
-        <OrbitControls />
+        <OrbitControls makeDefault />
         {scene === "finalDestination" ? <FinalDestination /> : <TheDriving />}
-        {transition && <FadedTransition delay={4} setTransition={setTransition} />}
+        {transition && <FadedTransition delay={2} setTransition={setTransition} />}
     </>;
 }

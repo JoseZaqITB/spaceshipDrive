@@ -5,7 +5,6 @@ import fragmentShader from "./shaders/fragment.glsl";
 import { extend, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { AdditiveBlending, Mesh, Vector3 } from "three";
-import { globals } from "./utils";
 import useGame from "./stores/useGame";
 
 const StarMaterial = shaderMaterial(
@@ -26,7 +25,7 @@ const StarMaterial = shaderMaterial(
 
 extend({ StarMaterial })
 
-export default function Stars({ position=[0,0,0], count = 1000, radius = 5, depth = 20, maxSize = 4, velocity: initialVelocity = 10, acceleration = globals.DEFAULT_ACCELERATION }) {
+export default function Stars({ position=[0,0,0], count = 1000, radius = 5, depth = 20, maxSize = 4}) {
     const starMaterial = useRef<Mesh>(null!);
 
     // powerUp feature
