@@ -1,11 +1,12 @@
 
-import { Point, Points, shaderMaterial, useKeyboardControls } from "@react-three/drei";
+import { Point, Points, shaderMaterial } from "@react-three/drei";
 import vertexShader from "./shaders/vertex.glsl";
 import fragmentShader from "./shaders/fragment.glsl";
 import { extend, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { AdditiveBlending, Vector3 } from "three";
+import { AdditiveBlending, Mesh, Vector3 } from "three";
 import { globals } from "./utils";
+import useGame from "./stores/useGame";
 
 const StarMaterial = shaderMaterial(
     {
@@ -26,11 +27,10 @@ const StarMaterial = shaderMaterial(
 extend({ StarMaterial })
 
 export default function Stars({ position=[0,0,0], count = 1000, radius = 5, depth = 20, maxSize = 4, velocity: initialVelocity = 10, acceleration = globals.DEFAULT_ACCELERATION }) {
-    const starMaterial = useRef(null);
-    const [, getKeys] = useKeyboardControls();
+    const starMaterial = useRef<Mesh>(null!);
 
     // powerUp feature
-    const velocity = useRef(initialVelocity);
+    const velocity = useGame((state) => state.velocity);
     useEffect(() => {
         if (starMaterial.current) {
             starMaterial.current.uDepth = depth;
@@ -41,14 +41,7 @@ export default function Stars({ position=[0,0,0], count = 1000, radius = 5, dept
         if (starMaterial.current) {
             starMaterial.current.uTime = state.clock.getElapsedTime();
         }
-        // power up feature
-        const { powerUp } = getKeys();
-        if (powerUp) {
-            velocity.current += (globals.MAXVELOCITY * 10 - velocity.current) * acceleration * 1/20 * delta;
-        } else {
-            velocity.current += (initialVelocity - velocity.current ) * acceleration * delta;
-        }
-        starMaterial.current.uVelocity = velocity.current;
+        starMaterial.current.uVelocity = velocity;
     })
 
     return <Points position={new Vector3(position[0], position[1], position[2])} limit={count}>

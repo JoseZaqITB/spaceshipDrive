@@ -1,36 +1,28 @@
-import { useGLTF, useKeyboardControls } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { useRef } from "react";
-import { globals } from "./utils";
+import useGame from "./stores/useGame";
+import { Mesh } from "three";
 
-type SpaceshipProps = ThreeElements["group"] & { velocity?: number, acceleration?: number }
+type SpaceshipProps = ThreeElements["group"];
 
 
-export default function Spaceship({ velocity: initialVelocity = 0.2, acceleration = globals.DEFAULT_ACCELERATION, ...props }: SpaceshipProps) {
+export default function Spaceship({ ...props }: SpaceshipProps) {
 
   const { nodes } = useGLTF('/models/spaceship_V2.glb');
 
-  const rotorFront = useRef(null);
+  const rotorFront = useRef<Mesh>(null!);
   const rotorBack = useRef(null);
 
   // powerUp feature
-  const velocity = useRef(initialVelocity);
-
-  // CONTROLS
-  const [, getKeys] = useKeyboardControls();
+  const velocity = useGame((state)=> state.velocity);
 
   // animations
   useFrame((_, delta) => {
-    const { powerUp } = getKeys();
     // power up feature
-    if (powerUp){
-      velocity.current += (globals.MAXVELOCITY - velocity.current ) * acceleration * delta;
-    } else {
-      velocity.current += (initialVelocity - velocity.current ) * acceleration * delta;
-    }
 
     // update rotation
-    rotorFront.current.rotation.x += velocity.current * delta;
+    rotorFront.current.rotation.x += velocity * delta;
     /* rotorBack.current.rotation.x -= velocity.current * delta; */
   });
   return (
