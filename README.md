@@ -84,3 +84,7 @@ export default defineConfig([
 
 - randomize star position
 - when space is pressup start aceleration from initial value
+- create a speed indicator
+- add a geometry that simulates space deform on the donut surface
+- create the sound effects
+- adjust camera far to see more stars

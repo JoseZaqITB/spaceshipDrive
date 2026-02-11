@@ -1,13 +1,14 @@
 import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
 import Spaceship from "./Spaceship"
 import Stars from "./Stars"
-import { Suspense, useRef, useState } from "react"
+import { Suspense, useLayoutEffect, useRef, useState } from "react"
 import { Perf } from "r3f-perf"
 import { DirectionalLightHelper, MathUtils } from "three"
 import { useControls } from "leva"
 import { useFrame } from "@react-three/fiber"
 import { globals } from "./utils"
 import useGame from "./stores/useGame";
+import SpaceDistorsion from "./SpaceDistorsion"
 
 const initialVelocity = 0.2;
 const acceleration = 1/2;
@@ -30,47 +31,44 @@ function TheDriving() {
 
   // shake animation
   const shake = useRef<ShakeController>(null);
-  const velocity = useRef(initialVelocity);
+  const velocity = useGame((state) => state.velocity);
+  const setVelocity = useGame((state) => state.setVelocity);
 
   const [, getKeys] = useKeyboardControls();
+
+  useLayoutEffect(() => {
+    setVelocity(initialVelocity); // initiate initial velocity value
+  }, [setVelocity]);
 
   useFrame((_, delta) => {
 
     const {powerUp} = getKeys();
 
-    // power up feature
+    /* power up feature */
     if (powerUp){
-      velocity.current += (globals.MAXVELOCITY - velocity.current ) * acceleration * delta;
+      setVelocity(velocity + (globals.MAXVELOCITY - velocity ) * acceleration * delta);
     } else {
-      velocity.current += (initialVelocity - velocity.current ) * acceleration * delta;
+      setVelocity(velocity + (initialVelocity - velocity ) * acceleration * delta);
     }
     // set intensity
-    const v = velocity.current
+    const v = velocity
 
     // map velocity → shake (ease-in)
-    const target = MathUtils.clamp(
-      (v / globals.MAXVELOCITY) ** 2,
-      0,
-      1
-    )
+    const target = MathUtils.clamp((v / globals.MAXVELOCITY) ** 2,0,1 );
 
     // smooth it
     const current = shake.current.getIntensity()
-    const smoothed = MathUtils.lerp(
-      current,
-      target,
-      1 - Math.exp(-delta * 8)
-    )
+    const smoothed = MathUtils.lerp(current,target,1 - Math.exp(-delta * 8))
 
     shake.current.setIntensity(smoothed)
 
     // PHASE MANAGE
-    if(velocity.current >= globals.MAXVELOCITY - 1 && phase === "driving") {
+    if(velocity >= globals.MAXVELOCITY - 1 && phase === "driving") {
       setPhase("passing"); // iniciar imagen de agujero de gusano
       setTimer(Date.now()); // iniciar contador
     }
 
-    if(velocity.current >= globals.MAXVELOCITY - 1 && phase === "passing" && (Date.now() - timer) >= 1000) {
+    if(velocity >= globals.MAXVELOCITY - 1 && phase === "passing" && (Date.now() - timer) >= 1000) {
       setPhase("end"); // para cambiar de scena 
     }
   })
@@ -103,8 +101,9 @@ function TheDriving() {
       <Suspense>
         {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
         <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} velocity={initialVelocity} acceleration={acceleration} />
-        <Stars count={1000} radius={2} depth={50} velocity={initialVelocity} maxSize={2} acceleration={acceleration} />
+        <Stars position={[0,0,-20]} count={500} radius={2} depth={25} velocity={initialVelocity} maxSize={2} acceleration={acceleration} />
       </Suspense>
+        <SpaceDistorsion/>
 
       {phase === "passing" &&
         <mesh>

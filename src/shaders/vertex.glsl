@@ -10,7 +10,7 @@ void main() {
     newPosition.z += uTime * uVelocity;
     
     // reset position when it passes z >= 3
-    newPosition.z = mod(newPosition.z, uDepth) - uDepth * 0.7;
+    newPosition.z = mod(newPosition.z, uDepth);
 
     //
     vec4 viewPosition = viewMatrix * modelMatrix * vec4(newPosition, 1.0);

@@ -4,7 +4,7 @@ import vertexShader from "./shaders/vertex.glsl";
 import fragmentShader from "./shaders/fragment.glsl";
 import { extend, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { AdditiveBlending } from "three";
+import { AdditiveBlending, Vector3 } from "three";
 import { globals } from "./utils";
 
 const StarMaterial = shaderMaterial(
@@ -25,7 +25,7 @@ const StarMaterial = shaderMaterial(
 
 extend({ StarMaterial })
 
-export default function Stars({ count = 1000, radius = 5, depth = 20, maxSize = 4, velocity: initialVelocity = 10, acceleration = globals.DEFAULT_ACCELERATION }) {
+export default function Stars({ position=[0,0,0], count = 1000, radius = 5, depth = 20, maxSize = 4, velocity: initialVelocity = 10, acceleration = globals.DEFAULT_ACCELERATION }) {
     const starMaterial = useRef(null);
     const [, getKeys] = useKeyboardControls();
 
@@ -51,7 +51,7 @@ export default function Stars({ count = 1000, radius = 5, depth = 20, maxSize = 
         starMaterial.current.uVelocity = velocity.current;
     })
 
-    return <Points limit={count}>
+    return <Points position={new Vector3(position[0], position[1], position[2])} limit={count}>
         <starMaterial ref={starMaterial} />
         {Array.from({ length: count }).map((_, i) => {
             const randomDirection = (Math.random() > 0.5 ? 1 : -1);
