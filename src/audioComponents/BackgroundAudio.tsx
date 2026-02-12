@@ -25,7 +25,7 @@ export default function BackgroundAudio({url = "audio/214663__hykenfreak__deep-s
             sound.current?.stop();
             camera.remove(listener.current);
         }
-    },[buffer, camera, loop, volume]);
+    },[buffer, camera, loop, volume, speed]);
 
     return null;
 }

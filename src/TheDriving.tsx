@@ -10,9 +10,7 @@ import useGame from "./stores/useGame";
 import SpaceDistorsion from "./SpaceDistorsion"
 import WormHole from "./WormHole"
 import BackgroundAudio from "./audioComponents/BackgroundAudio"
-import DynamicAudio from "./audioComponents/DynamicAudio"
-
-const acceleration = 1/2;
+import PowerUpAudio from "./audioComponents/PowerUpAudio"
 
 function TheDriving() {
   const directionalLight = useRef(null);
@@ -48,9 +46,9 @@ function TheDriving() {
 
     /* power up feature */
     if (powerUp){
-      setVelocity(velocity + (globals.MAXVELOCITY - velocity ) * acceleration * delta);
+      setVelocity(velocity + (globals.MAXVELOCITY - velocity ) * globals.DEFAULT_ACCELERATION * delta);
     } else {
-      setVelocity(velocity + (globals.INITIALVELOCITY - velocity ) * acceleration * delta);
+      setVelocity(velocity + (globals.INITIALVELOCITY - velocity ) * globals.DEFAULT_ACCELERATION * delta);
     }
     // set intensity
     const v = velocity
@@ -79,7 +77,7 @@ function TheDriving() {
     <>
       <BackgroundAudio />
       <BackgroundAudio url="public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3" volume={3} />
-      <DynamicAudio url="audio/47631__jovica__space-sweep-11_v2.mp3" />
+      <PowerUpAudio url="audio/47631__jovica__space-sweep-11_v2.mp3" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
       <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />

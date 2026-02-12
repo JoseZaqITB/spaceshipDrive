@@ -4,7 +4,7 @@ import { Audio, AudioLoader, AudioListener } from "three";
 import useGame from "../stores/useGame";
 import { globals } from "../utils";
 
-export default function DynamicAudio({url, volume= 1, loop = false}: {url: string, volume?: number, loop?: boolean}) {
+export default function PowerUpAudio({url, volume= 1, loop = false}: {url: string, volume?: number, loop?: boolean}) {
     
 
     /* SETTING AUDIO */
@@ -17,12 +17,11 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
     const maxSoundDuration = useMemo(() => 134,[]);
     const velocity = useGame((state) => state.velocity);
 
-    const oldVelocity = useRef(0);
-    const isIncreasing = useRef(true);
+    const oldVelocity = useRef(globals.INITIALVELOCITY + 0.1);
+    const isIncreasing = useRef(false);
 
-    useFrame(() => {
+    useFrame((_, delta) => {
         // start audio when velocity start increasing
-        if(sound.current.isPlaying) {
             // keep audio playing while  velocity is increasing
             if(isIncreasing.current) {
                 if(velocity < oldVelocity.current ) {
@@ -31,6 +30,13 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
                     sound.current.setLoop(false);
                     sound.current.offset = maxSoundDuration - ((velocity * 44) / globals.MAXVELOCITY );
                     console.log(sound.current.loop);
+                    //
+                    const t = delta * Math.log(1- 0.9) / Math.log(1- (globals.DEFAULT_ACCELERATION * delta));
+                    const speed = 44 / t;
+                    console.log("t: ", t, "speed: ",speed);
+
+                    sound.current.setPlaybackRate(speed);
+                    //
                     sound.current.play();
                 }
             } else {
@@ -42,12 +48,16 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
                     sound.current.setLoop(true);
                     sound.current.setLoopStart(20);
                     sound.current.setLoopEnd(90);
+                    //
+                    const t = delta * Math.log(1- 0.9) / Math.log(1- (globals.DEFAULT_ACCELERATION * delta));
+                    const speed = 90 / t;
+                    console.log("delta: ", delta, "t: ", t, "speed: ",speed);
+
+                    sound.current.setPlaybackRate(speed);
+                    //
                     sound.current.play();
                 }
             }
-        } else if( velocity > globals.INITIALVELOCITY +  globals.INITIALVELOCITY / 3 ) {
-            sound.current.play();
-        }
         
         
         // update params
@@ -64,6 +74,7 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
         sound.current.setBuffer(buffer);
         sound.current.setVolume(volume);
         sound.current.setLoop(loop);
+        
         /* // start audio
         sound.current.play(); */
 

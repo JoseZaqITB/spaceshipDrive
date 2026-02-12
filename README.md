@@ -90,3 +90,97 @@ export default defineConfig([
 - randomize star position
 - create a speed indicator
 - create despegue scene ( with the audio start button)
+
+## How to obtain time duration for get the max velocity
+
+1️⃣ Tu ecuación discreta (la clave)
+Tienes:
+
+```
+v{n+1} = v*n + (vmax - v_n) * a _Δ
+```
+
+donde:
+
+```
+a = aceleración
+
+Δ = delta (segundos del frame)
+
+n = frame
+```
+
+Esto es una recurrencia exponencial discreta.
+
+2️⃣ Solución cerrada (discreta)
+
+Si partes de v₀ = 0, la solución tras n frames es:
+
+```
+v_n = vmax \* (1 - (1 - aΔ)^n)
+```
+
+👉 Esto ya incorpora delta, no asumimos tiempo continuo.
+
+3️⃣ Relación entre tiempo real y frames
+
+El tiempo real transcurrido es:
+
+```
+t = n \* Δ
+```
+
+Despejamos n:
+
+```
+n = t / Δ
+```
+
+4️⃣ Velocidad en función del tiempo real (con delta)
+
+Sustituimos:
+
+```
+v(t) = vmax \* (1 - (1 - aΔ)^(t / Δ))
+```
+
+Esto sí representa exactamente lo que pasa en tu loop de frames, incluso si delta cambia.
+
+5️⃣ Tiempo para llegar a un porcentaje de vmax
+
+Queremos:
+
+```
+v(t) = p \* vmax
+```
+
+Entonces:
+
+```
+p = 1 - (1 - aΔ)^(t / Δ)
+```
+
+Despejamos t:
+
+```
+(1 - aΔ)^(t / Δ) = 1 - p
+
+t / Δ = ln(1 - p) / ln(1 - aΔ)
+
+t = Δ \* ln(1 - p) / ln(1 - aΔ)
+```
+
+⚠️ Nota: ambos logaritmos son negativos → el tiempo sale positivo.
+
+6️⃣ Fórmula FINAL (la que necesitas)
+
+```
+tiempo = delta _ ln(1 - porcentaje) / ln(1 - aceleracion _ delta)
+```
+
+Ejemplo típico:
+
+```js
+const p = 0.99;
+const t = (delta * Math.log(1 - p)) / Math.log(1 - a * delta);
+```
