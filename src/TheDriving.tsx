@@ -78,6 +78,7 @@ function TheDriving() {
   return (
     <>
       <BackgroundAudio />
+      <BackgroundAudio url="public/audio/427504__solarphasing__industrial-noises-ambient-sound-1.wav" volume={3} />
       <DynamicAudio url="audio/47631__jovica__space-sweep-11.flac" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />

@@ -27,7 +27,6 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
             if(isIncreasing.current) {
                 if(velocity < oldVelocity.current ) {
                     isIncreasing.current = false;
-                    console.log("decreasing");
                     sound.current.stop();
                     sound.current.setLoop(false);
                     sound.current.offset = maxSoundDuration - ((velocity * 44) / globals.MAXVELOCITY );
@@ -36,8 +35,8 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
                 }
             } else {
                 if(velocity > oldVelocity.current ) {
+                    // set decreasing audio when velocity start decreasing
                     isIncreasing.current = true;
-                    console.log("creasing");
                     sound.current.stop();
                     sound.current.offset = 0;
                     sound.current.setLoop(true);
@@ -49,7 +48,7 @@ export default function DynamicAudio({url, volume= 1, loop = false}: {url: strin
         } else if( velocity > globals.INITIALVELOCITY +  globals.INITIALVELOCITY / 3 ) {
             sound.current.play();
         }
-        // set decreasing audio when velocity start decreasing
+        
         
         // update params
         oldVelocity.current = velocity;
