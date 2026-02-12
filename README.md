@@ -89,3 +89,4 @@ export default defineConfig([
 - when space is pressup start aceleration from initial value
 - randomize star position
 - create a speed indicator
+- create despegue scene ( with the audio start button)

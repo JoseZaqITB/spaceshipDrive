@@ -10,8 +10,8 @@ import useGame from "./stores/useGame";
 import SpaceDistorsion from "./SpaceDistorsion"
 import WormHole from "./WormHole"
 import BackgroundAudio from "./audioComponents/BackgroundAudio"
+import DynamicAudio from "./audioComponents/DynamicAudio"
 
-const initialVelocity = 0.2;
 const acceleration = 1/2;
 
 function TheDriving() {
@@ -39,7 +39,7 @@ function TheDriving() {
   const [, getKeys] = useKeyboardControls();
 
   useLayoutEffect(() => {
-    setVelocity(initialVelocity); // initiate initial velocity value
+    setVelocity(globals.INITIALVELOCITY); // initiate initial velocity value
   }, [setVelocity]);
 
   useFrame((_, delta) => {
@@ -50,7 +50,7 @@ function TheDriving() {
     if (powerUp){
       setVelocity(velocity + (globals.MAXVELOCITY - velocity ) * acceleration * delta);
     } else {
-      setVelocity(velocity + (initialVelocity - velocity ) * acceleration * delta);
+      setVelocity(velocity + (globals.INITIALVELOCITY - velocity ) * acceleration * delta);
     }
     // set intensity
     const v = velocity
@@ -78,6 +78,7 @@ function TheDriving() {
   return (
     <>
       <BackgroundAudio />
+      <DynamicAudio url="audio/47631__jovica__space-sweep-11.flac" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
       <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />
