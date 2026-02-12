@@ -32,7 +32,7 @@ function TheDriving() {
   /* useHelper(directionalLight, DirectionalLightHelper, 1); */
   
   // shake animation
-  const shake = useRef<ShakeController>(null);
+  const shake = useRef<ShakeController>(null!);
   const velocity = useGame((state) => state.velocity);
   const setVelocity = useGame((state) => state.setVelocity);
 
@@ -78,8 +78,8 @@ function TheDriving() {
   return (
     <>
       <BackgroundAudio />
-      <BackgroundAudio url="public/audio/427504__solarphasing__industrial-noises-ambient-sound-1.wav" volume={3} />
-      <DynamicAudio url="audio/47631__jovica__space-sweep-11.flac" />
+      <BackgroundAudio url="public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3" volume={3} />
+      <DynamicAudio url="audio/47631__jovica__space-sweep-11_v2.mp3" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
       <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />
@@ -110,7 +110,12 @@ function TheDriving() {
       </Suspense>
         <SpaceDistorsion/>
 
-      {phase === "passing" && <WormHole position={debugObject.wormHolePosition} />}
+      {phase === "passing" && (<>
+        <Suspense >
+          <BackgroundAudio url="audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3" speed={3} />
+        </Suspense>
+        <WormHole position={debugObject.wormHolePosition} />
+      </>)}
   
     </>
   )
