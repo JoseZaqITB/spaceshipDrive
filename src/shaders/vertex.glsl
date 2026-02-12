@@ -22,7 +22,7 @@ void main() {
     gl_PointSize =  /**
     * sizes
     */
-    gl_PointSize = size * 100.0;
+    gl_PointSize = size * 25.0;
     // perspective sizes
     gl_PointSize *= ( 1.0 / - viewPosition.z );
 }

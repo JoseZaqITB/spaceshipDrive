@@ -9,6 +9,7 @@ import { globals } from "./utils"
 import useGame from "./stores/useGame";
 import SpaceDistorsion from "./SpaceDistorsion"
 import WormHole from "./WormHole"
+import BackgroundAudio from "./audioComponents/BackgroundAudio"
 
 const initialVelocity = 0.2;
 const acceleration = 1/2;
@@ -76,6 +77,7 @@ function TheDriving() {
   //
   return (
     <>
+      <BackgroundAudio />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
       <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />
@@ -102,7 +104,7 @@ function TheDriving() {
       <Suspense>
         {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
         <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} />
-        <Stars position={[0,0,-20]} count={500} radius={2} depth={25} />
+        <Stars position={[0,0,-20]} count={500} radius={2} depth={40} />
       </Suspense>
         <SpaceDistorsion/>
 
