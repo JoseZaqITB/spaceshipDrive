@@ -1,10 +1,10 @@
 import TheDriving from "./TheDriving"
 import FinalDestination from "./FinalDestination";
-import useGame from "./stores/useGame"
+import useGame from "../stores/useGame"
 import { Perf } from "r3f-perf";
 import { OrbitControls } from "@react-three/drei";
 import { useState } from "react";
-import FadedTransition from "./FadedTransition";
+import FadedTransition from "../FadedTransition";
 
 export default function SceneManager() {
     const scene = useGame((state) => state.scene); 
@@ -18,6 +18,6 @@ export default function SceneManager() {
         <Perf position="top-left" />
         <OrbitControls makeDefault />
         {scene === "finalDestination" ? <FinalDestination /> : <TheDriving />}
-        {transition && <FadedTransition delay={2} setTransition={setTransition} />}
+        {transition && <FadedTransition delay={0} setTransition={setTransition} />}
     </>;
 }

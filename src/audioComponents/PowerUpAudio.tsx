@@ -31,7 +31,7 @@ export default function PowerUpAudio({url, volume= 1, loop = false}: {url: strin
                     sound.current.offset = maxSoundDuration - ((velocity * 44) / globals.MAXVELOCITY );
                     console.log(sound.current.loop);
                     //
-                    const t = delta * Math.log(1- 0.9) / Math.log(1- (globals.DEFAULT_ACCELERATION * delta));
+                    const t = delta * Math.log(1- 0.99) / Math.log(1- (globals.DEFAULT_ACCELERATION * delta));
                     const speed = 44 / t;
                     console.log("t: ", t, "speed: ",speed);
 
@@ -49,7 +49,7 @@ export default function PowerUpAudio({url, volume= 1, loop = false}: {url: strin
                     sound.current.setLoopStart(20);
                     sound.current.setLoopEnd(90);
                     //
-                    const t = delta * Math.log(1- 0.9) / Math.log(1- (globals.DEFAULT_ACCELERATION * delta));
+                    const t = delta * Math.log(1- 0.99) / Math.log(1- (globals.DEFAULT_ACCELERATION * delta));
                     const speed = 90 / t;
                     console.log("delta: ", delta, "t: ", t, "speed: ",speed);
 

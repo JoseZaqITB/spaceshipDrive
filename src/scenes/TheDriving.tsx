@@ -1,16 +1,16 @@
 import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
-import Spaceship from "./Spaceship"
-import Stars from "./Stars"
+import Spaceship from "../Spaceship"
+import Stars from "../Stars"
 import { Suspense, useLayoutEffect, useRef } from "react"
 import { DirectionalLightHelper, MathUtils } from "three"
 import { useControls } from "leva"
 import { useFrame } from "@react-three/fiber"
-import { globals } from "./utils"
-import useGame from "./stores/useGame";
-import SpaceDistorsion from "./SpaceDistorsion"
-import WormHole from "./WormHole"
-import BackgroundAudio from "./audioComponents/BackgroundAudio"
-import PowerUpAudio from "./audioComponents/PowerUpAudio"
+import { globals } from "../utils"
+import useGame from "../stores/useGame";
+import SpaceDistorsion from "../SpaceDistorsion"
+import WormHole from "../WormHole"
+import BackgroundAudio from "../audioComponents/BackgroundAudio"
+import PowerUpAudio from "../audioComponents/PowerUpAudio"
 
 function TheDriving() {
   const directionalLight = useRef(null);
@@ -105,13 +105,10 @@ function TheDriving() {
         {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
         <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} />
         <Stars position={[0,0,-20]} count={500} radius={2} depth={40} />
+        <BackgroundAudio url="audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3" speed={3} play={phase === "passing"} />
       </Suspense>
         <SpaceDistorsion/>
-
       {phase === "passing" && (<>
-        <Suspense >
-          <BackgroundAudio url="audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3" speed={3} />
-        </Suspense>
         <WormHole position={debugObject.wormHolePosition} />
       </>)}
   
