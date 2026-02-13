@@ -1,13 +1,13 @@
 import { useGLTF } from "@react-three/drei";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
-import { useRef } from "react";
+import { useRef, type Ref } from "react";
 import useGame from "./stores/useGame";
-import { BufferGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial } from "three";
+import { BufferGeometry, Group, Mesh, MeshBasicMaterial, MeshStandardMaterial } from "three";
 
-type SpaceshipProps = ThreeElements["group"] & { fullModule?: boolean };
+type SpaceshipProps = ThreeElements["group"] & { fullModule?: boolean, ref?: Ref<Group>};
 
 
-export default function Spaceship({fullModule = true, ...props }: SpaceshipProps) {
+export default function Spaceship({fullModule = true, ref, ...props }: SpaceshipProps) {
 
   const { nodes } = useGLTF('/models/spaceship_V2.glb');
   
@@ -27,7 +27,7 @@ export default function Spaceship({fullModule = true, ...props }: SpaceshipProps
     /* rotorBack.current.rotation.x -= velocity.current * delta; */
   });
   return (
-    <group {...props} dispose={null} scale={0.1}>
+    <group ref={ref} {...props} dispose={null}>
       <mesh
         ref={rotorFront}
         castShadow

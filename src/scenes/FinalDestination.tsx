@@ -4,7 +4,7 @@ import earthFragmentShader from "../shaders/earth/fragment.glsl";
 import atmosphereVertexShader from "../shaders/atmosphere/vertex.glsl";
 import atmosphereFragmentShader from "../shaders/atmosphere/fragment.glsl";
 import { shaderMaterial, useTexture } from "@react-three/drei";
-import { BackSide, Color, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Texture, Vector3 } from "three";
+import { BackSide, Color, Group, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Texture, Vector3 } from "three";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useControls } from "leva";
@@ -42,10 +42,12 @@ extend({EarthShaderMaterial,AtmosphereShaderMaterial});
 // MAIN
 export default function FinalDestination() {
     /* debug */
-    const debugObject = useControls("earth",{
+    const [debugObject, setDebugObject] = useControls(() => ({
         atmosphereColor: "#00aaff",
         nightAtmosphereColor: "#ff6600",
-    });
+        earthRadius: 2,
+        sunPosition:  [ 2 ,0,-0.2],
+    }));
     /** Camera */
     const camera = useThree((state) => state.camera);
     /**
@@ -77,6 +79,9 @@ export default function FinalDestination() {
     useEffect(() => {
         // camera settings
         camera.position.set(1,1,4);
+        // sun config
+        setDebugObject({sunPosition: [(debugObject.earthRadius + 0.4),0,0] });
+
         // shaders
         earthShader.current.uniforms.uTDay.value = tEarthDay;
         earthShader.current.uniforms.uTNight.value = tEarthNight;
@@ -90,33 +95,39 @@ export default function FinalDestination() {
         atmosphereShader.current.uniforms.uAtmosphereNightColor.value = new Color(debugObject.nightAtmosphereColor);
     }, []);
 
-    // earth model
+    // model animations
     const earth = useRef<Mesh>(null!);
-
+    const spaceship = useRef<Group>(null!);
+    const target = new Vector3(0.4, 0.6,debugObject.earthRadius + 0.1); // dont let me use useMemo
+    // animations
     useFrame((_,delta) => {
+        // earth rotation
         earth.current.rotation.y += 0.01 * delta;
+
+        // spaceship movement
+        spaceship.current.position.lerp(target, 1 - Math.exp(-0.1 *  delta));
     });
 
     return <>
         {/* LIGHTS */}
-        <directionalLight />
+        <directionalLight position={debugObject.sunPosition} />
         {/* SHAPES */}
-        <mesh ref={sun} position={[-2.7,0,0]} rotation={[0,Math.PI * 0.22, 0]}>
+        <mesh ref={sun} position={debugObject.sunPosition} rotation={[0,Math.PI * 0.0, 0]}>
             <circleGeometry args={[0.25]} />
             <meshBasicMaterial alphaMap={txtAlpha} transparent />
         </mesh>
 
         <mesh ref={earth}>
-            <sphereGeometry args={[2, 64, 64]} />
+            <sphereGeometry args={[debugObject.earthRadius, 64, 64]} />
             <earthShaderMaterial ref={earthShader} />
         </mesh>
 
         <mesh scale={[1.04, 1.04, 1.04]}>
-            <sphereGeometry args={[2, 64, 64]} />
+            <sphereGeometry args={[debugObject.earthRadius, 64, 64]} />
             <atmosphereShaderMaterial ref={atmosphereShader} />
         </mesh>
 
-        <Spaceship position={[0,0,10]} rotation-y={Math.PI * 0.5} />
+        <Spaceship ref={spaceship} position={[0.6,1.0,4.1]} rotation-y={Math.PI * 0.5} scale={0.01} />
 
     </>
 }
