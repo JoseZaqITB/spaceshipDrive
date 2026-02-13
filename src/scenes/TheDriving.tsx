@@ -103,7 +103,7 @@ function TheDriving() {
       {/* meshes */}
       <Suspense>
         {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
-        <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} />
+        <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} fullModule={false} />
         <Stars position={[0,0,-20]} count={500} radius={2} depth={40} />
         <BackgroundAudio url="audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3" speed={3} play={phase === "passing"} />
       </Suspense>

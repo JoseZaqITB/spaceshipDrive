@@ -2,17 +2,18 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { useRef } from "react";
 import useGame from "./stores/useGame";
-import { Mesh } from "three";
+import { BufferGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial } from "three";
 
-type SpaceshipProps = ThreeElements["group"];
+type SpaceshipProps = ThreeElements["group"] & { fullModule?: boolean };
 
 
-export default function Spaceship({ ...props }: SpaceshipProps) {
+export default function Spaceship({fullModule = true, ...props }: SpaceshipProps) {
 
   const { nodes } = useGLTF('/models/spaceship_V2.glb');
+  
 
   const rotorFront = useRef<Mesh>(null!);
-  const rotorBack = useRef(null);
+  const rotorBack = useRef<Mesh<BufferGeometry, MeshStandardMaterial | MeshBasicMaterial>>(null);
 
   // powerUp feature
   const velocity = useGame((state)=> state.velocity);
@@ -54,22 +55,25 @@ export default function Spaceship({ ...props }: SpaceshipProps) {
           <meshBasicMaterial color={"cyan"} />
         </mesh>
       </mesh>
-      {/* <mesh
-        ref={rotorBack}
-        castShadow
-        receiveShadow
-        geometry={nodes.rotorBack.geometry}
-        >
-        <meshStandardMaterial roughness={0.2} metalness={0.6} />
-            
-        <mesh
-          castShadow
-          geometry={nodes.rotorBack_light.geometry}
-        >
-            <meshBasicMaterial color={"cyan"}/>
-            
-        </mesh>
-      </mesh> */}
+      {fullModule && (<>
+          <mesh
+            ref={rotorBack}
+            castShadow
+            receiveShadow
+            geometry={nodes.rotorBack.geometry}
+            >
+            <meshStandardMaterial roughness={0.2} metalness={0.6} />
+                
+            <mesh
+              castShadow
+              geometry={nodes.rotorBack_light.geometry}
+            >
+                <meshBasicMaterial color={"cyan"}/>
+                
+            </mesh>
+          </mesh>
+        </>)}
+      
     </group>
   )
 }
