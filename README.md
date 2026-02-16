@@ -83,13 +83,14 @@ export default defineConfig([
 - camera shake
 - add a geometry that simulates space deform on the donut surface
 - adjust camera far to see more stars
-
 - create the sound effects
+
+- create a speed indicator and hint UI overlay
+- create despegue scene ( with the audio start button)
 - improve spaceship model
 - when space is pressup start aceleration from initial value
 - randomize star position
-- create a speed indicator
-- create despegue scene ( with the audio start button)
+- make it mobile friendly
 
 ## How to obtain time duration for get the max velocity
 
