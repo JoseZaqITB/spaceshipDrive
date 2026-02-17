@@ -1,0 +1,50 @@
+.UIContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.velocimeterContainer {
+  position: absolute;
+  bottom: 0;
+  margin: min(50px, 10%);
+  width: 100px;
+  height: 60px;
+}
+
+.indicatorContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-5px, 100%);
+  width: 100%;
+  height: 100%;
+}
+
+.indicator {
+  width: 10px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--color-darker);
+}
+
+.meter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  color: hsl(213, 100%, 50%);
+}
+
+.division {
+  border-right: 1px solid white;
+  border-radius: 16px;
+}
