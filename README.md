@@ -84,8 +84,11 @@ export default defineConfig([
 - add a geometry that simulates space deform on the donut surface
 - adjust camera far to see more stars
 - create the sound effects
-
 - create a speed indicator and hint UI overlay
+
+- fix stars reverse issue
+- create sun movement effect in the The Driving scene
+- create game stuff
 - create despegue scene ( with the audio start button)
 - improve spaceship model
 - when space is pressup start aceleration from initial value

@@ -1,16 +1,17 @@
 
 import { Point, Points, shaderMaterial } from "@react-three/drei";
-import vertexShader from "./shaders/vertex.glsl";
-import fragmentShader from "./shaders/fragment.glsl";
+import vertexShader from "./shaders/stars/vertex.glsl";
+import fragmentShader from "./shaders/stars/fragment.glsl";
 import { extend, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { AdditiveBlending, Mesh, Vector3 } from "three";
 import useGame from "./stores/useGame";
+import { globals } from "./utils";
 
 const StarMaterial = shaderMaterial(
     {
         uTime: 0,
-        uVelocity: 10,
+        uPosition: 10,
         uDepth: 100,
     },
     vertexShader,
@@ -30,17 +31,18 @@ export default function Stars({ position=[0,0,0], count = 1000, radius = 5, dept
 
     // powerUp feature
     const velocity = useGame((state) => state.velocity);
+    const accPosition = useRef(0);
     useEffect(() => {
         if (starMaterial.current) {
             starMaterial.current.uDepth = depth;
         }
     }, [depth])
 
-    useFrame((state, delta) => {
+    useFrame((_,delta) => {
         if (starMaterial.current) {
-            starMaterial.current.uTime = state.clock.getElapsedTime();
+            accPosition.current += Math.pow(velocity/ globals.MAXVELOCITY, 3) * delta *  globals.MAXVELOCITY * 10;
+            starMaterial.current.uPosition = accPosition.current;
         }
-        starMaterial.current.uVelocity = velocity;
     })
 
     return <Points position={new Vector3(position[0], position[1], position[2])} limit={count}>

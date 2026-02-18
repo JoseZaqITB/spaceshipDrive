@@ -1,5 +1,4 @@
-uniform float uTime;
-uniform float uVelocity;
+uniform float uPosition;
 uniform float uDepth;
 
 attribute float size;
@@ -7,7 +6,7 @@ attribute float size;
 void main() {
     vec3 newPosition = position;
     // move to z direction
-    newPosition.z += uTime * uVelocity;
+    newPosition.z += uPosition;
     
     // reset position when it passes z >= 3
     newPosition.z = mod(newPosition.z, uDepth);
@@ -17,9 +16,6 @@ void main() {
     gl_Position = projectionMatrix * viewPosition;
 
     /**
-    * sizes
-    */
-    gl_PointSize =  /**
     * sizes
     */
     gl_PointSize = size * 25.0;
