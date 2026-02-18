@@ -85,10 +85,12 @@ export default defineConfig([
 - adjust camera far to see more stars
 - create the sound effects
 - create a speed indicator and hint UI overlay
-
 - fix stars reverse issue
-- create sun movement effect in the The Driving scene
+
+- mouse movement
+- gas y camera de movimientos
 - create game stuff
+- create sun movement effect in the The Driving scene
 - create despegue scene ( with the audio start button)
 - improve spaceship model
 - when space is pressup start aceleration from initial value

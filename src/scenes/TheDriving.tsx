@@ -1,10 +1,10 @@
 import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
 import Spaceship from "../Spaceship"
 import Stars from "../Stars"
-import { Suspense, useLayoutEffect, useRef } from "react"
-import { DirectionalLightHelper, MathUtils } from "three"
+import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { DirectionalLightHelper, MathUtils, Vector3 } from "three"
 import { useControls } from "leva"
-import { useFrame } from "@react-three/fiber"
+import { useFrame, useThree } from "@react-three/fiber"
 import { globals } from "../utils"
 import useGame from "../stores/useGame";
 import SpaceDistorsion from "../SpaceDistorsion"
@@ -35,13 +35,40 @@ function TheDriving() {
   const setVelocity = useGame((state) => state.setVelocity);
 
   const [, getKeys] = useKeyboardControls();
+  
+  // mouse movement
+  const [isMouseActive, setIsMouseActive] = useState(false);
+  const {camera, pointer} = useThree();
+  const [initialCameraPos] = useState({...camera.position});
+
+  useEffect(() => {
+    // listeners
+    const onClick = () => setIsMouseActive(true);
+    const onDown = (e:KeyboardEvent) => {  if(e.code === "Escape") setIsMouseActive(false)};
+
+    window.addEventListener("click", onClick);
+    window.addEventListener("keydown", onDown);
+
+    return ()=> { 
+      window.removeEventListener("click", onClick);
+      window.removeEventListener("keydown", onDown);
+    }
+  },[]);
 
   useLayoutEffect(() => {
     setVelocity(globals.INITIALVELOCITY); // initiate initial velocity value
+
   }, [setVelocity]);
 
-  useFrame((_, delta) => {
 
+  useFrame((_, delta) => {
+    /* mouse movement */
+    if(isMouseActive){
+      camera.position.lerp({x:pointer.x * 0.1 + initialCameraPos.x , y:pointer.y * 0.1 + initialCameraPos.y,z:camera.position.z}, 0.01);
+    }
+
+
+    /* velocity update */
     const {powerUp} = getKeys();
 
     /* power up feature */
