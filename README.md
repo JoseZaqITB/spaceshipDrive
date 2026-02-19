@@ -88,12 +88,14 @@ export default defineConfig([
 - fix stars reverse issue
 - mouse movement
 
+- create despegue scene ( with the audio start button)
+- change worlds textures
+- improve spaceship model
+- use water sound effects
 - add sound transition effect
 - gas y camera de movimientos
 - create game stuff
 - create sun movement effect in the The Driving scene
-- create despegue scene ( with the audio start button)
-- improve spaceship model
 - when space is pressup start aceleration from initial value
 - randomize star position
 - make it mobile friendly
