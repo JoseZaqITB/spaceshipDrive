@@ -87,8 +87,8 @@ export default defineConfig([
 - create a speed indicator and hint UI overlay
 - fix stars reverse issue
 - mouse movement
-
 - create despegue scene ( with the audio start button)
+
 - change worlds textures
 - improve spaceship model
 - use water sound effects

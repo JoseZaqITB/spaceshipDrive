@@ -63,7 +63,7 @@ export default function FinalDestination() {
     const atmosphereShader = useRef<ShaderMaterial>(null!);
 
     // textures
-    const tEarthDay = useTexture("assets/earth/day.jpg", (txt) => {
+    const tEarthDay = useTexture("assets/makemake/2k_makemake_fictional.jpg", (txt) => {
         txt.colorSpace = SRGBColorSpace;
         txt.anisotropy = 4;
     });

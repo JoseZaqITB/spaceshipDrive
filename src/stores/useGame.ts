@@ -19,7 +19,7 @@ export default create<GameStoreType>()(subscribeWithSelector((set) => ({
     timer: 0,
     velocity:0,
     phase: "driving",
-    scene: "launch",
+    scene: "finalDestination",
     setVelocity: (velocity) => set({velocity}),
     setScene: (scene) => set({scene}),
     setPhase: (phase) => set(phase === "end" ? {phase, scene: "finalDestination"} : {phase, scene: "theDriving"}),
