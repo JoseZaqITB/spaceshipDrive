@@ -3,7 +3,7 @@ import earthVertexShader from "../shaders/earth/vertex.glsl";
 import earthFragmentShader from "../shaders/earth/fragment.glsl";
 import atmosphereVertexShader from "../shaders/atmosphere/vertex.glsl";
 import atmosphereFragmentShader from "../shaders/atmosphere/fragment.glsl";
-import { shaderMaterial, useTexture } from "@react-three/drei";
+import { Environment, shaderMaterial, useTexture } from "@react-three/drei";
 import { BackSide, Color, Group, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Texture, Vector3 } from "three";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
@@ -109,6 +109,8 @@ export default function FinalDestination() {
     });
 
     return <>
+        {/* BACKGROUND */}
+        <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} backgroundRotation={[Math.PI,0,0]} />
         {/* LIGHTS */}
         <directionalLight position={debugObject.sunPosition} />
         {/* SHAPES */}

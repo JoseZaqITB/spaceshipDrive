@@ -97,7 +97,6 @@ void main()
     float strenght = fbm(vUv *50.0) * 1.0;
     strenght = smoothstep(0.4, 1.0, strenght);
     strenght *= smoothstep(0.5,1.0,snoise(vUv * 20.0)); 
-    //vec3 nightColor = vec3(strenght);
     vec3 nightColor = mix(dayColor / 50.0, vec3(0.0,1.0,1.0), strenght);
 
 

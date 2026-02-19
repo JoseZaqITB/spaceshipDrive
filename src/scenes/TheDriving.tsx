@@ -1,7 +1,7 @@
 import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
 import Spaceship from "../Spaceship"
 import Stars from "../Stars"
-import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 import { DirectionalLightHelper, MathUtils } from "three"
 import { useControls } from "leva"
 import { useFrame, useThree } from "@react-three/fiber"
@@ -109,7 +109,7 @@ function TheDriving() {
       <PowerUpAudio url="audio/47631__jovica__space-sweep-11_v2.mp3" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
-      <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />
+      <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"}  />
       {/* Lights and shadows */}
       <SoftShadows size={debugObject.size} samples={debugObject.samples} focus={debugObject.focus} />
       <directionalLight
