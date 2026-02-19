@@ -2,7 +2,7 @@ import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type Sha
 import Spaceship from "../Spaceship"
 import Stars from "../Stars"
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react"
-import { DirectionalLightHelper, MathUtils, Vector3 } from "three"
+import { DirectionalLightHelper, MathUtils } from "three"
 import { useControls } from "leva"
 import { useFrame, useThree } from "@react-three/fiber"
 import { globals } from "../utils"
@@ -55,9 +55,11 @@ function TheDriving() {
     }
   },[]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setVelocity(globals.INITIALVELOCITY); // initiate initial velocity value
-
+    return () => {
+      setVelocity(globals.INITIALVELOCITY);
+    }
   }, [setVelocity]);
 
 

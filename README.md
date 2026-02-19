@@ -86,8 +86,9 @@ export default defineConfig([
 - create the sound effects
 - create a speed indicator and hint UI overlay
 - fix stars reverse issue
-
 - mouse movement
+
+- add sound transition effect
 - gas y camera de movimientos
 - create game stuff
 - create sun movement effect in the The Driving scene

@@ -13,10 +13,10 @@ export default function Spaceship({fullModule = true, ref, ...props }: Spaceship
   
 
   const rotorFront = useRef<Mesh>(null!);
-  const rotorBack = useRef<Mesh<BufferGeometry, MeshStandardMaterial | MeshBasicMaterial>>(null);
+  const rotorBack = useRef<Mesh<BufferGeometry, MeshStandardMaterial | MeshBasicMaterial>>(null!);
 
   // powerUp feature
-  const velocity = useGame((state)=> state.velocity);
+  const {velocity} = useGame();
 
   // animations
   useFrame((_, delta) => {
@@ -24,8 +24,10 @@ export default function Spaceship({fullModule = true, ref, ...props }: Spaceship
 
     // update rotation
     rotorFront.current.rotation.x += velocity * delta;
-    /* rotorBack.current.rotation.x -= velocity.current * delta; */
+    if(fullModule)
+      rotorBack.current.rotation.x -= velocity * delta;
   });
+
   return (
     <group ref={ref} {...props} dispose={null}>
       <mesh
