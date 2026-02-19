@@ -15,7 +15,8 @@ export default function SceneManager() {
 
     return <>
         <Perf position="top-left" />
-        {scene === "finalDestination" ? <FinalDestination /> : <TheDriving />}
+        {scene === "finalDestination" && <FinalDestination />} 
+        {scene === "theDriving" &&  <TheDriving />}
         {transition && <FadedTransition delay={0} setTransition={setTransition} />}
     </>;
 }

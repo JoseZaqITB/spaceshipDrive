@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 
-type sceneType = "theDriving" | "finalDestination";
+type sceneType = "theDriving" | "finalDestination" | "launch";
 type phaseType = "driving" | "passing" | "end";
 
 type GameStoreType = {
@@ -19,7 +19,7 @@ export default create<GameStoreType>()(subscribeWithSelector((set) => ({
     timer: 0,
     velocity:0,
     phase: "driving",
-    scene: "theDriving",
+    scene: "launch",
     setVelocity: (velocity) => set({velocity}),
     setScene: (scene) => set({scene}),
     setPhase: (phase) => set(phase === "end" ? {phase, scene: "finalDestination"} : {phase, scene: "theDriving"}),
