@@ -25,6 +25,15 @@ export default function LaunchUI() {
 
 
     return <div className={styles.launchContainer} >
-        <button onClick={() => setLaunch(true)}>Launch</button>
+        <button 
+            style={launch ? {
+                backgroundColor: "var(--color-light)",
+                border: "4px solid var(--color-lightest)",
+                boxShadow:
+                    `0px 0px 120px 8px var(--color-lightest),
+                    0px 0px 4px var(--color-lightest),
+                    inset 0px 0px 4px var(--color-lightest)`,
+            }: {}} 
+            onClick={() => setLaunch(true)}>Launch</button>
     </div>;
 }
