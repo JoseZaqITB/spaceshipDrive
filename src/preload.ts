@@ -8,7 +8,7 @@ export default function preload() {
     /* THE DRIVING SCENE */
     // audio
     useLoader.preload(AudioLoader, "audio/214663__hykenfreak__deep-space-ship-effect_v3.mp3");
-    useLoader.preload(AudioLoader, "public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3");
+    useLoader.preload(AudioLoader, "audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3");
     useLoader.preload(AudioLoader, "audio/47631__jovica__space-sweep-11_v2.mp3");
     useLoader.preload(AudioLoader, "audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3");
 

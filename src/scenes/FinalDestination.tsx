@@ -108,7 +108,7 @@ export default function FinalDestination() {
         </mesh>
 
         <Spaceship ref={spaceship} position={[0.6,1.0,4.1]} rotation-y={Math.PI * 0.5} scale={0.01}>
-            <PositionalAudio url={"public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3"} loop autoplay distance={0.5} setVolume={3} />
+            <PositionalAudio url={"audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3"} loop autoplay distance={0.5} setVolume={3} />
         </Spaceship>
 
     </>
