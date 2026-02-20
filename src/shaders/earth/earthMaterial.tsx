@@ -6,7 +6,6 @@ import { Color, Texture, Vector3 } from "three";
 export const EarthShaderMaterial = shaderMaterial(
     {
         uTDay: new Texture(),
-        uTNight: new Texture(),
         uTEClouds: new Texture(),
         uSunPosition: new Vector3(0, 1.8369701987210297e-16, 3),
         uAtmosphereDayColor: new Color("#ffffff"),

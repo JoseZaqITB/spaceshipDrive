@@ -41,10 +41,6 @@ export default function FinalDestination() {
         txt.colorSpace = SRGBColorSpace;
         txt.anisotropy = 4;
     });
-    const tEarthNight = useTexture("assets/earth/night.jpg", (txt) => {
-        txt.colorSpace = SRGBColorSpace;
-        txt.anisotropy = 4;
-    });
     const tEarthClouds = useTexture("assets/earth/specularClouds.jpg", (txt) => {
         txt.colorSpace = SRGBColorSpace;
         txt.anisotropy = 4;
@@ -58,7 +54,6 @@ export default function FinalDestination() {
 
         // shaders
         earthShader.current.uniforms.uTDay.value = tEarthDay;
-        earthShader.current.uniforms.uTNight.value = tEarthNight;
         earthShader.current.uniforms.uTEClouds.value = tEarthClouds;
         earthShader.current.uniforms.uSunPosition.value = sun.current.position;
         earthShader.current.uniforms.uAtmosphereDayColor.value = new Color(debugObject.atmosphereColor);
@@ -108,7 +103,7 @@ export default function FinalDestination() {
         </mesh>
 
         <Spaceship ref={spaceship} position={[0.6,1.0,4.1]} rotation-y={Math.PI * 0.5} scale={0.01}>
-            <PositionalAudio url={"public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3"} loop autoplay distance={0.5} setVolume={3} />
+            <PositionalAudio url={"audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3"} loop autoplay distance={0.5} setVolume={3} />
         </Spaceship>
 
     </>

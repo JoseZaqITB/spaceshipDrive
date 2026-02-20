@@ -1,5 +1,4 @@
 uniform sampler2D uTDay;
-uniform sampler2D uTNight;
 uniform sampler2D uTEClouds;
 uniform vec3 uSunPosition;
 uniform vec3 uAtmosphereDayColor;
