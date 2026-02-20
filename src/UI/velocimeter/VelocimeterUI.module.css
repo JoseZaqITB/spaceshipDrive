@@ -32,7 +32,7 @@
   width: 10px;
   height: 30px;
   border-radius: 50%;
-  background-color: var(--color-darker);
+  background-color: var(--color-base);
 }
 
 .meter {

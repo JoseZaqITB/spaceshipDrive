@@ -1,6 +1,6 @@
 import { useFrame, type ThreeElements } from "@react-three/fiber"
 import { useRef } from "react";
-import type { Mesh } from "three";
+import type { Mesh, MeshStandardMaterial, TorusGeometry } from "three";
 import useGame from "./stores/useGame";
 import { globals } from "./utils";
 
@@ -10,7 +10,7 @@ export default function SpaceDistorsion(props: SpaceDistorsionProps) {
 
     const velocity = useGame((state) => state.velocity);
 
-    const torus = useRef<Mesh>(null!);
+    const torus = useRef<Mesh<TorusGeometry, MeshStandardMaterial>>(null!);
     useFrame((_,delta)=> {
         /*Update opacity by velocity*/
         torus.current.material.opacity = Math.pow(velocity / globals.MAXVELOCITY,6);

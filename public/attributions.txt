@@ -1,0 +1,13 @@
+Deep Space Ship Effect by hykenfreak -- https://freesound.org/s/214663/ -- License: Attribution 4.0
+
+Industrial Noises Ambient Sound 1.wav by SolarPhasing -- https://freesound.org/s/427504/ -- License: Attribution 4.0
+
+Space Sweep 11.flac by Jovica -- https://freesound.org/s/47631/ -- License: Attribution 4.0
+
+DRONE AND SPACE SOUNDS STYLOPHONE GEN X 01.wav by GeistJon -- https://freesound.org/s/521977/ -- License: Creative Commons 0
+
+Spaceship Launch & Shut off.flac by Erokia -- https://freesound.org/s/625159/ -- License: Attribution NonCommercial 4.0
+
+Makemake planet textures - https://www.solarsystemscope.com/textures/
+
+noise glsl -> https://github.com/patriciogonzalezvivo/lygia/blob/main/generative/snoise.glsl and http://patriciogonzalezvivo.com

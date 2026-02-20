@@ -1,9 +1,9 @@
-import { Environment, CameraShake, useHelper, SoftShadows, BakeShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
+import { Environment, CameraShake, SoftShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
 import Spaceship from "../Spaceship"
 import Stars from "../Stars"
-import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react"
-import { DirectionalLightHelper, MathUtils } from "three"
-import { useControls } from "leva"
+import { Suspense, useEffect, useRef, useState } from "react"
+import {MathUtils } from "three"
+import { Leva, useControls } from "leva"
 import { useFrame, useThree } from "@react-three/fiber"
 import { globals } from "../utils"
 import useGame from "../stores/useGame";
@@ -104,12 +104,13 @@ function TheDriving() {
   //
   return (
     <>
-      <BackgroundAudio />
+    <Leva hidden />
+      <BackgroundAudio url="audio/214663__hykenfreak__deep-space-ship-effect_v3.mp3" />
       <BackgroundAudio url="public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3" volume={3} />
       <PowerUpAudio url="audio/47631__jovica__space-sweep-11_v2.mp3" />
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
       <color attach="background" args={['black']} />
-      <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} />
+      <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"}  />
       {/* Lights and shadows */}
       <SoftShadows size={debugObject.size} samples={debugObject.samples} focus={debugObject.focus} />
       <directionalLight
@@ -130,7 +131,7 @@ function TheDriving() {
       <meshStandardMaterial />
     </mesh> */}
       {/* meshes */}
-      <Suspense>
+      <Suspense fallback={null}>
         {/* <BakeShadows /> */} {/* // the shadow lights dont move :) */}
         <Spaceship rotation={[0, Math.PI * 0.5, 0]} position={[0, 0, 0]} fullModule={false} scale={0.1} />
         <Stars position={[0,0,-20]} count={500} radius={2} depth={40} />

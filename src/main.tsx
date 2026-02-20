@@ -5,7 +5,10 @@ import { Canvas } from '@react-three/fiber'
 import { KeyboardControls } from '@react-three/drei'
 import SceneManager from './scenes/SceneManager.tsx'
 import MainUI from './UI/MainUI.tsx'
+import preload from './preload.ts'
 
+// PRELOAD ASSETS
+preload();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
