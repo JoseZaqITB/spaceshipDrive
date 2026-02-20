@@ -1,44 +1,17 @@
 import Spaceship from "../Spaceship";
-import earthVertexShader from "../shaders/earth/vertex.glsl";
-import earthFragmentShader from "../shaders/earth/fragment.glsl";
-import atmosphereVertexShader from "../shaders/atmosphere/vertex.glsl";
-import atmosphereFragmentShader from "../shaders/atmosphere/fragment.glsl";
-import { Environment, PositionalAudio, shaderMaterial, useTexture } from "@react-three/drei";
-import { BackSide, Color, Group, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Texture, Vector3 } from "three";
-import { extend, useFrame, useThree } from "@react-three/fiber";
+import { AtmosphereShaderMaterial } from "../shaders/atmosphere/Atmosphere";
+import { EarthShaderMaterial } from "../shaders/earth/earthMaterial";
+import { Environment, PositionalAudio, useTexture } from "@react-three/drei";
+import { Color, Group, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Vector3 } from "three";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { Leva, useControls } from "leva";
 import BackgroundAudio from "../audioComponents/BackgroundAudio";
 
 // shaders
-const EarthShaderMaterial = shaderMaterial(
-    {
-        uTDay: new Texture(),
-        uTNight: new Texture(),
-        uTEClouds: new Texture(),
-        uSunPosition: new Vector3(0, 1.8369701987210297e-16, 3),
-        uAtmosphereDayColor: new Color("#ffffff"),
-        uAtmosphereNightColor: new Color("#000000"),
-    },
-    earthVertexShader,
-    earthFragmentShader,
-);
 
-const AtmosphereShaderMaterial = shaderMaterial(
-    {
-        uSunPosition: [-5,0,5],
-        uAtmosphereDayColor: new Color("#ffffff"),
-        uAtmosphereNightColor: new Color("#000000"),
-    },
-    atmosphereVertexShader,
-    atmosphereFragmentShader,
-    (material)=> {
-        material!.transparent = true;
-        material!.side = BackSide;
-    }
-);
 
-extend({EarthShaderMaterial,AtmosphereShaderMaterial});
+
 
 // MAIN
 export default function FinalDestination() {
@@ -126,12 +99,12 @@ export default function FinalDestination() {
 
         <mesh ref={earth}>
             <sphereGeometry args={[debugObject.earthRadius, 64, 64]} />
-            <earthShaderMaterial ref={earthShader} />
+            <primitive  object={new EarthShaderMaterial()} attach={"material"} ref={earthShader} />
         </mesh>
 
         <mesh scale={[1.04, 1.04, 1.04]}>
             <sphereGeometry args={[debugObject.earthRadius, 64, 64]} />
-            <atmosphereShaderMaterial ref={atmosphereShader} />
+            <primitive  object={new AtmosphereShaderMaterial()} attach={"material"} ref={atmosphereShader} />
         </mesh>
 
         <Spaceship ref={spaceship} position={[0.6,1.0,4.1]} rotation-y={Math.PI * 0.5} scale={0.01}>
