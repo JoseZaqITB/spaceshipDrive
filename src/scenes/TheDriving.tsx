@@ -3,7 +3,7 @@ import Spaceship from "../Spaceship"
 import Stars from "../Stars"
 import { Suspense, useEffect, useRef, useState } from "react"
 import { DirectionalLightHelper, MathUtils } from "three"
-import { useControls } from "leva"
+import { Leva, useControls } from "leva"
 import { useFrame, useThree } from "@react-three/fiber"
 import { globals } from "../utils"
 import useGame from "../stores/useGame";
@@ -104,6 +104,7 @@ function TheDriving() {
   //
   return (
     <>
+    <Leva hidden />
       <BackgroundAudio url="audio/214663__hykenfreak__deep-space-ship-effect_v3.mp3" />
       <BackgroundAudio url="public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3" volume={3} />
       <PowerUpAudio url="audio/47631__jovica__space-sweep-11_v2.mp3" />

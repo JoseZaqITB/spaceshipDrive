@@ -3,11 +3,12 @@ import earthVertexShader from "../shaders/earth/vertex.glsl";
 import earthFragmentShader from "../shaders/earth/fragment.glsl";
 import atmosphereVertexShader from "../shaders/atmosphere/vertex.glsl";
 import atmosphereFragmentShader from "../shaders/atmosphere/fragment.glsl";
-import { Environment, shaderMaterial, useTexture } from "@react-three/drei";
+import { Environment, PositionalAudio, shaderMaterial, useTexture } from "@react-three/drei";
 import { BackSide, Color, Group, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Texture, Vector3 } from "three";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { useControls } from "leva";
+import { Leva, useControls } from "leva";
+import BackgroundAudio from "../audioComponents/BackgroundAudio";
 
 // shaders
 const EarthShaderMaterial = shaderMaterial(
@@ -109,6 +110,10 @@ export default function FinalDestination() {
     });
 
     return <>
+        <Leva hidden />
+        {/* AUDIO */}
+        <BackgroundAudio url={"audio/214663__hykenfreak__deep-space-ship-effect_v3.mp3"} play volume={0.5} />
+
         {/* BACKGROUND */}
         <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} backgroundRotation={[Math.PI,0,0]} />
         {/* LIGHTS */}
@@ -129,7 +134,9 @@ export default function FinalDestination() {
             <atmosphereShaderMaterial ref={atmosphereShader} />
         </mesh>
 
-        <Spaceship ref={spaceship} position={[0.6,1.0,4.1]} rotation-y={Math.PI * 0.5} scale={0.01} />
+        <Spaceship ref={spaceship} position={[0.6,1.0,4.1]} rotation-y={Math.PI * 0.5} scale={0.01}>
+            <PositionalAudio url={"public/audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3"} loop autoplay distance={0.5} setVolume={3} />
+        </Spaceship>
 
     </>
 }

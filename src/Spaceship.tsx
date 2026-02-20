@@ -30,6 +30,7 @@ export default function Spaceship({fullModule = true, ref, ...props }: Spaceship
 
   return (
     <group ref={ref} {...props} dispose={null}>
+      {props.children}
       <mesh
         ref={rotorFront}
         castShadow

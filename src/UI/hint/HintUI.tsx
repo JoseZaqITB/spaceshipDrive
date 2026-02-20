@@ -3,7 +3,7 @@ import styles from "./HintUI.module.css";
 
 export default function HintUI() {
     // show/hide state
-    const [showHint, setShowHint] = useState(true);
+    const [showHint, setShowHint] = useState(false);
 
     useEffect(() => {
         // call and remove space key listener
@@ -12,7 +12,13 @@ export default function HintUI() {
                 setShowHint(false);
             };
         }
+        // show hint when clicked
+        const show = () => { 
+                setShowHint(true);
+                window.removeEventListener("click", show);
+        };
         window.addEventListener("keydown", hide );
+        window.addEventListener("click", show );
         return () => window.removeEventListener("keydown", hide);
     }, []);
 

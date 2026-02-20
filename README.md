@@ -88,9 +88,11 @@ export default defineConfig([
 - fix stars reverse issue
 - mouse movement
 - create despegue scene ( with the audio start button)
-
 - change worlds textures
+
 - improve spaceship model
+- create layer protection with a keyboard
+- open gates or windows with clicks
 - use water sound effects
 - add sound transition effect
 - gas y camera de movimientos
