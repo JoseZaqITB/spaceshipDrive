@@ -10,7 +10,7 @@ export default function VelocimeterUI () {
     // split the meter
     const divisions = Array.from({length: 6}, (_, i) => i);
     //
-    return <div className={styles.velocimeterContainer} >
+    return <div className={styles.velocimeterContainer} style={globals.isMobile ? {bottom: "10%"} :{} } >
         <div 
             className={styles.indicatorContainer} 
             style={{

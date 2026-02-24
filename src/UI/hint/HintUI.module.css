@@ -20,6 +20,20 @@
   background-color: var(--color-darker);
 }
 
+.hintTouch {
+  margin: 16px auto;
+
+  width: 50%;
+  height: 50%;
+
+  border-radius: 50%;
+
+  background-color: var(--color-light);
+  opacity: 0.4;
+
+  animation: 3s infinite normal touching linear;
+}
+
 p {
   padding: 0;
   margin: 0;
@@ -30,6 +44,31 @@ p {
 h2 {
   margin: 24px;
   font-size: 22px;
+}
+
+@keyframes touching {
+  0% {
+    box-shadow:
+      inset -1px 2px 2px var(--color-light),
+      inset 1px -3px 1px var(--color-darkest);
+  }
+
+  10% {
+    box-shadow:
+      inset -1px 2px 2px var(--color-light),
+      inset 1px -3px 1px var(--color-darkest);
+  }
+
+  20% {
+    box-shadow:
+      inset 1px -2px 1px var(--color-light),
+      inset -1px 3px 2px var(--color-darkest);
+  }
+  90% {
+    box-shadow:
+      inset 1px -2px 1px var(--color-light),
+      inset -1px 3px 2px var(--color-darkest);
+  }
 }
 
 @keyframes pressing {

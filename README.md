@@ -90,6 +90,7 @@ export default defineConfig([
 - create despegue scene ( with the audio start button)
 - change worlds textures
 
+- make it mobile friendly
 - improve spaceship model
 - create layer protection with a keyboard
 - open gates or windows with clicks
@@ -100,7 +101,6 @@ export default defineConfig([
 - create sun movement effect in the The Driving scene
 - when space is pressup start aceleration from initial value
 - randomize star position
-- make it mobile friendly
 
 ## How to obtain time duration for get the max velocity
 

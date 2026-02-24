@@ -14,6 +14,8 @@ import PowerUpAudio from "../audioComponents/PowerUpAudio"
 
 function TheDriving() {
   const directionalLight = useRef(null);
+  // mobile support
+  const [mobilePowerUp, setMobilePowerUp] = useState(false);
   // store
   const phase = useGame((state) => state.phase);
   const timer = useGame((state) => state.timer);
@@ -46,12 +48,30 @@ function TheDriving() {
     const onClick = () => setIsMouseActive(true);
     const onDown = (e:KeyboardEvent) => {  if(e.code === "Escape") setIsMouseActive(false)};
 
+    // mobile support
+    // detect if the user's device is a mobile
+    const onTouchUp = () => {
+      setMobilePowerUp(true);
+    };
+    const onTouchDown = () => {
+      setMobilePowerUp(false);
+    };
+    if(globals.isMobile ){
+      window.addEventListener("touchstart", onTouchUp);
+      window.addEventListener("touchend", onTouchDown);
+    }
+    // desktop support
     window.addEventListener("click", onClick);
     window.addEventListener("keydown", onDown);
 
     return ()=> { 
       window.removeEventListener("click", onClick);
       window.removeEventListener("keydown", onDown);
+      // mobile support
+      if(globals.isMobile){
+        window.removeEventListener("touchstart", onTouchUp);
+        window.removeEventListener("touchend", onTouchDown);
+      }
     }
   },[]);
 
@@ -74,7 +94,7 @@ function TheDriving() {
     const {powerUp} = getKeys();
 
     /* power up feature */
-    if (powerUp){
+    if (powerUp || mobilePowerUp){
       setVelocity(velocity + (globals.MAXVELOCITY - velocity ) * globals.DEFAULT_ACCELERATION * delta);
     } else {
       setVelocity(velocity + (globals.INITIALVELOCITY - velocity ) * globals.DEFAULT_ACCELERATION * delta);
