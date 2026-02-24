@@ -41,10 +41,6 @@ export default function FinalDestination() {
         txt.colorSpace = SRGBColorSpace;
         txt.anisotropy = 4;
     });
-    const tEarthNight = useTexture("assets/earth/night.jpg", (txt) => {
-        txt.colorSpace = SRGBColorSpace;
-        txt.anisotropy = 4;
-    });
     const tEarthClouds = useTexture("assets/earth/specularClouds.jpg", (txt) => {
         txt.colorSpace = SRGBColorSpace;
         txt.anisotropy = 4;
@@ -58,7 +54,6 @@ export default function FinalDestination() {
 
         // shaders
         earthShader.current.uniforms.uTDay.value = tEarthDay;
-        earthShader.current.uniforms.uTNight.value = tEarthNight;
         earthShader.current.uniforms.uTEClouds.value = tEarthClouds;
         earthShader.current.uniforms.uSunPosition.value = sun.current.position;
         earthShader.current.uniforms.uAtmosphereDayColor.value = new Color(debugObject.atmosphereColor);

@@ -21,8 +21,7 @@ export default function preload() {
     /* FINAL DESTINATION SCENE */
     // textures
     useTexture.preload("assets/imgs/alpha.jpg");
-    useTexture.preload("assets/earth/day.jpg");
-    useTexture.preload("assets/earth/night.jpg");
+    useTexture.preload("assets/makemake/2k_makemake_fictional.jpg");
     useTexture.preload("assets/earth/specularClouds.jpg");
 
 }
