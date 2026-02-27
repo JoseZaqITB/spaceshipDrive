@@ -14,7 +14,7 @@ preload();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <MainUI />
-    <KeyboardControls map={[{ name: "powerUp", keys: ["Space"] }]}>
+    <KeyboardControls map={[{ name: "powerUp", keys: ["Space"] }, { name: "wormHole", keys: ["KeyE"] }]}>
       <Canvas
         shadows
         camera={{ position: globals.isMobile ? [1, 0, 3.5] : [1,0,1.5], far: 500, near: 0.1 }}
