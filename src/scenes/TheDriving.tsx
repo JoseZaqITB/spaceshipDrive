@@ -23,7 +23,8 @@ function TheDriving() {
   const setTimer = useGame((state) => state.setTimer);
   // debug
   const debugObject = useControls({
-    sunPosition: [2, 1, 3],
+    sunPosition: [0.01, 0.01, -0.01], //[2, 1, 3]
+    sunPosition2: [-0.01, -0.01, -0.01],
     size: 10,
     samples: 20,
     focus: 0,
@@ -135,9 +136,10 @@ function TheDriving() {
       <SoftShadows size={debugObject.size} samples={debugObject.samples} focus={debugObject.focus} />
       <directionalLight
         ref={directionalLight}
+        color={"cyan"}
         castShadow
         position={debugObject.sunPosition}
-        intensity={1}
+        intensity={2}
         shadow-mapSize={[1024, 1024]}
         shadow-camera-far={30}
         shadow-camera-near={0.1}
@@ -145,7 +147,18 @@ function TheDriving() {
         shadow-camera-bottom={-2}
         shadow-camera-left={-3}
         shadow-camera-right={3}
-      />´
+      />
+
+      <directionalLight
+        ref={directionalLight}
+        color={"cyan"}
+        position={debugObject.sunPosition2}
+        intensity={2}
+        
+      />
+      
+      {/* <ambientLight color={"white"} intensity={3} /> */}
+      <hemisphereLight intensity={3} groundColor={0xcc5500} color={"blue"} />
       {/* <mesh castShadow position={[10,10,20]} scale={10}>
       <boxGeometry />
       <meshStandardMaterial />
