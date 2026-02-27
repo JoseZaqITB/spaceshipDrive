@@ -103,7 +103,7 @@ function TheDriving() {
 
 
     /* velocity update */
-    const {powerUp, wormHole} = getKeys();
+    const {powerUp, interact} = getKeys();
 
     /* power up feature */
     if (powerUp || mobilePowerUp){
@@ -128,7 +128,7 @@ function TheDriving() {
       setPhase("passing"); // iniciar imagen de agujero de gusano
     }
 
-    if(phase === "passing" && wormHole) {
+    if(phase === "passing" && interact) {
       shockWaveEffect.current.explode();
       setPhase("end");
     }
