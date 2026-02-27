@@ -149,11 +149,11 @@ function TheDriving() {
           <ShockWave  
             ref={shockWaveEffect}
             position={[1, 0, -2]}
-            size={0.4}
+            size={0.3}
             extent={5}
             speed={0.25}         
             waveSize={1}      
-            amplitude={0.15}    
+            amplitude={0.05}    
            />
           {/* Default */}
           <ToneMapping mode={ ToneMappingMode.ACES_FILMIC  } />
@@ -202,6 +202,7 @@ function TheDriving() {
       {phase === "end" && (<>
         <WormHole position={debugObject.wormHolePosition} />
       </>)}
+
   
     </>
   )
