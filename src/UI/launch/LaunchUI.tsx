@@ -33,6 +33,7 @@ export default function LaunchUI() {
                     `0px 0px 120px 8px var(--color-lightest),
                     0px 0px 4px var(--color-lightest),
                     inset 0px 0px 4px var(--color-lightest)`,
+                animation: `3s twinkle infinite`,
             }: {}} 
             onClick={() => setLaunch(true)}>Launch</button>
     </div>;

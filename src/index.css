@@ -15,13 +15,13 @@
   font-size: 18px;
   color: var(--color-lightest);
   /* Color System */
-  --color-lightest: hsl(250, 30%, 90%);
-  --color-lighter: hsl(240, 15%, 80%);
-  --color-light: hsl(240, 10%, 60%);
-  --color-base: hsl(240, 5%, 50%);
-  --color-dark: hsl(240, 10%, 30%);
-  --color-darker: hsl(240, 12%, 15%);
-  --color-darkest: hsl(240, 20%, 10%);
+  --color-lightest: hsl(190, 100%, 90%);
+  --color-lighter: hsl(190, 90%, 80%);
+  --color-light: hsl(190, 85%, 60%);
+  --color-base: hsl(190, 80%, 50%);
+  --color-dark: hsl(190, 85%, 30%);
+  --color-darker: hsl(190, 90%, 15%);
+  --color-darkest: hsl(190, 100%, 6%);
 
   /*border radius*/
   --border-radius: 8px;
@@ -38,4 +38,16 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: black;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
