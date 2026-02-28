@@ -22,6 +22,9 @@
   --color-dark: hsl(240, 10%, 30%);
   --color-darker: hsl(240, 12%, 15%);
   --color-darkest: hsl(240, 20%, 10%);
+
+  /*border radius*/
+  --border-radius: 8px;
 }
 
 body {
