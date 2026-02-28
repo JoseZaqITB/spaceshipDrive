@@ -49,6 +49,7 @@ export default function FinalDestination() {
 
     /* PHASES */
     const setPhase = useGame((state) => state.setPhase);
+    const phase = useGame((state) => state.phase);
     // mouse movement
     const [isMouseActive, setIsMouseActive] = useState(false);
     const [initialCameraPos] = useState(new Vector3(1,1,4));
@@ -147,11 +148,14 @@ export default function FinalDestination() {
         </EffectComposer>
         {/* AUDIO */}
         <BackgroundAudio url={"audio/214663__hykenfreak__deep-space-ship-effect_v3.mp3"} play volume={0.5} />
-
+        <BackgroundAudio url="audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3" speed={3} play={phase === "end"} loop={false}/>
+        
         {/* BACKGROUND */}
         <Environment 
             background 
             environmentIntensity={2} 
+            backgroundRotation={[Math.PI * 0.5, 0,0]} 
+            environmentRotation={[Math.PI * 0.5, 0,0]}
             files={"assets/HDR_subdued_blue_nebulae_low.exr"} 
         />
         {/* LIGHTS */}
@@ -171,6 +175,7 @@ export default function FinalDestination() {
         <Spaceship ref={spaceship} position={[0.6,1.0,5.1]} rotation-y={Math.PI * 0.5} scale={0.01}>
             <PositionalAudio url={"audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3"} loop autoplay distance={0.5} setVolume={3} />
         </Spaceship>
+        
 
     </>
 }
