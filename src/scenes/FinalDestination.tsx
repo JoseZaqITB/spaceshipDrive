@@ -9,6 +9,7 @@ import { Leva, useControls } from "leva";
 import BackgroundAudio from "../audioComponents/BackgroundAudio";
 import { Bloom, EffectComposer, ShockWave, ToneMapping } from "@react-three/postprocessing";
 import { ShockWaveEffect, ToneMappingMode } from "postprocessing";
+import useGame from "../stores/useGame";
 
 // shaders
 
@@ -51,6 +52,9 @@ export default function FinalDestination() {
         txt.colorSpace = SRGBColorSpace;
         txt.anisotropy = 4;
     });
+
+    /* PHASES */
+    const setPhase = useGame((state) => state.setPhase);
     // mouse movement
     const [isMouseActive, setIsMouseActive] = useState(false);
     const [initialCameraPos] = useState(new Vector3(1,1,4));
@@ -58,13 +62,19 @@ export default function FinalDestination() {
     const [showSpaceship, setShowSpaceship] = useState(false);
 
     const [subscribeKeys] = useKeyboardControls( );
-    subscribeKeys((state) => state.interact, () => {if(!showSpaceship) setShowSpaceship(true) });
+    subscribeKeys((state) => state.interact, () => {
+        if(!showSpaceship) {
+            setShowSpaceship(true) 
+            setPhase("end");
+        }
+        });
     // shockwave
       const shockWaveEffect = useRef<ShockWaveEffect>(null!);  
       useEffect(()=> {if(showSpaceship) shockWaveEffect.current.explode(); },[showSpaceship]);
     //
     useEffect(() => {
-        
+        // set initial phase
+        setPhase("passing");
         // camera settings
         camera.position.set(1,1,4);
         camera.lookAt(0,0,0);

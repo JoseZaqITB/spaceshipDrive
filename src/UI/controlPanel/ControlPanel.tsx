@@ -7,11 +7,12 @@ import styles from "./ControlPanel.module.css";
 export default function ControlPanel() {
     const phase = useGame((state) => state.phase);
         const powerUp = useKeyboardControls((state) => state.powerUp);
+        const interact = useKeyboardControls((state) => state.interact);
     return (
         <div className={styles.controlPanelContainer}>
-            <ControlButton enable={phase === "passing"} emoji="𖦹" keyBoard="E" onClick={() => { }} />
+            <ControlButton active={interact} enable={phase === "passing"} emoji="𖦹" keyBoard="E" onClick={() => { }} />
             <ControlButton active={powerUp} enable={phase === "driving"} emoji="—͟͟͞͞★" keyBoard="Space" onClick={() => { }} />
-            <VelocimeterUIWrapper phase={phase} />
+            <VelocimeterUIWrapper phase={phase} />  
         </div>
     );
 }
