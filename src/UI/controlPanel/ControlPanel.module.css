@@ -11,8 +11,8 @@
   padding: 16px;
   box-sizing: border-box;
 
-  width: min(400px, 30%);
-  height: min(300px, 50%);
+  width: max(400px, 30%);
+  height: max(320px, 50%);
 
   background-color: var(--color-dark);
   opacity: 0.75;
@@ -34,8 +34,8 @@
   font-size: 18px;
   padding: 0px;
 
-  width: min(400px, 30%);
-  height: min(300px, 50%);
+  width: max(120px, 30%);
+  height: max(140px, 50%);
 
   background-color: var(--color-dark);
 
@@ -73,10 +73,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: min(16px, 5%);
 
-  width: min(300px, 70%);
-  height: min(120px, 40%);
+  width: max(300px, 70%);
+  height: max(120px, 40%);
 
   background-color: var(--color-dark);
 
@@ -111,5 +111,40 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .controlPanelContainer {
+    width: 95%;
+    height: min(100px, 25%);
+  }
+
+  .controlButton {
+    width: 22%;
+    height: 100%;
+    & .emoji {
+      font-size: 24px;
+      margin: auto;
+    }
+
+    & .keyBoard {
+      display: none;
+    }
+  }
+
+  .velocimeterUIWrapper {
+    padding: 2px 8px;
+    width: 40%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .wormHole {
+    font-size: 24px;
+  }
+
+  .wormHoleDisabled {
+    font-size: 24px;
   }
 }
