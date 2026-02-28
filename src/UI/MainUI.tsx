@@ -4,6 +4,8 @@ import LaunchUI from "./launch/LaunchUI";
 import {useState } from "react";
 import { globals } from "../utils";
 import DrivingUI from "./driving/DrivingUI";
+import FadedUI from "./FadedUI/FadedUI";
+import ControlPanel from "./controlPanel/ControlPanel";
 
 export default function MainUI(){
     // active UI
@@ -24,6 +26,7 @@ export default function MainUI(){
     return <div className={styles.UIContainer} >
         {scene === "theDriving" && <DrivingUI />}
         {scene === "launch" && <LaunchUI />}
+        {scene === "finalDestination" && <FadedUI><ControlPanel /></FadedUI>}
     </div>;
     
 }
