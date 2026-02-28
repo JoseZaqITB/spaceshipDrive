@@ -2,7 +2,7 @@ import Spaceship from "../Spaceship";
 import { AtmosphereShaderMaterial } from "../shaders/atmosphere/Atmosphere";
 import { EarthShaderMaterial } from "../shaders/earth/earthMaterial";
 import { Environment, PositionalAudio, useKeyboardControls, useTexture } from "@react-three/drei";
-import { Color, Group, HalfFloatType, Mesh, MeshBasicMaterial, ShaderMaterial, SphereGeometry, SRGBColorSpace, Vector3 } from "three";
+import { Color, Group, HalfFloatType, Mesh, ShaderMaterial, SRGBColorSpace, Vector3 } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Leva, useControls } from "leva";
@@ -31,13 +31,7 @@ export default function FinalDestination() {
     }));
     /** Camera */
     const {camera, pointer} = useThree();
-    /**
-     * Sun
-     */
-    const sun = useRef<Mesh<SphereGeometry, MeshBasicMaterial>>(null!);
-    const txtAlpha = useTexture("assets/imgs/alpha.jpg", (txt) => {
-        txt.colorSpace = SRGBColorSpace;
-    });
+    
 
     /* SHADERS */
     const earthShader = useRef<ShaderMaterial>(null!);
@@ -157,19 +151,9 @@ export default function FinalDestination() {
         {/* BACKGROUND */}
         <Environment 
             background 
-            backgroundRotation={[Math.PI,0,0]}
-            environmentIntensity={20} 
-            files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"} 
-            near={1} 
-            far={1000} 
-            resolution={256}
-        >
-            <mesh ref={sun} rotation={[0, debugObject.earthRotation,0]} position={[debugObject.sunPosition[0] +1, debugObject.sunPosition[1], debugObject.sunPosition[2] +2]}  scale={5.0}>
-                <circleGeometry args={[0.25]} />
-                <meshBasicMaterial alphaMap={txtAlpha} transparent />
-            </mesh>
-
-        </Environment>
+            environmentIntensity={2} 
+            files={"assets/HDR_subdued_blue_nebulae_low.exr"} 
+        />
         {/* LIGHTS */}
         <directionalLight position={debugObject.sunPosition} intensity={10} />
         {/* SHAPES */}

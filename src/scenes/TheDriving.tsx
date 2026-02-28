@@ -159,7 +159,7 @@ function TheDriving() {
           <ToneMapping mode={ ToneMappingMode.LINEAR  } />
         </EffectComposer>
 
-      <Environment background environmentIntensity={2} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"}  />
+      <Environment background environmentIntensity={2} files={"assets/HDR_subdued_blue_nebulae_low.exr"}  />
       {/* Lights and shadows */}
       <SoftShadows size={debugObject.size} samples={debugObject.samples} focus={debugObject.focus} />
       <directionalLight

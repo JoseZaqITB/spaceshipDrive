@@ -13,7 +13,7 @@ export default function preload() {
     useLoader.preload(AudioLoader, "audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3");
     
     // hdri
-    useTexture.preload("assets/HDR_subdued_blue_nebulae_lower_res.hdr");
+    useTexture.preload("assets/HDR_subdued_blue_nebulae_low.exr");
     
     // models
     useGLTF.preload("models/spaceship_V3_UV_v3.glb");
