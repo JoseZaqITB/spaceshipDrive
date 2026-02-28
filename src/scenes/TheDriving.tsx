@@ -4,7 +4,7 @@ import {ShockWaveEffect, ToneMappingMode} from "postprocessing"
 import Spaceship from "../Spaceship"
 import Stars from "../Stars"
 import { Suspense, useEffect, useRef, useState } from "react"
-import {MathUtils } from "three"
+import {HalfFloatType, MathUtils } from "three"
 import { Leva, useControls } from "leva"
 import { useFrame, useThree } from "@react-three/fiber"
 import { globals } from "../utils"
@@ -145,7 +145,7 @@ function TheDriving() {
       {/*Effects*/}
       {<CameraShake ref={shake} decay={false} intensity={10} maxYaw={0.003} maxPitch={0.003} maxRoll={0.003} yawFrequency={5} pitchFrequency={5} rollFrequency={4} />}
        
-        <EffectComposer enabled={phase !== "driving"} multisampling={ 0 }>
+        <EffectComposer enabled={phase !== "driving"} multisampling={ 4 } frameBufferType={HalfFloatType} >
           <ShockWave  
             ref={shockWaveEffect}
             position={[1, 0, -2]}
@@ -156,10 +156,10 @@ function TheDriving() {
             amplitude={0.05}    
            />
           {/* Default */}
-          <ToneMapping mode={ ToneMappingMode.ACES_FILMIC  } />
+          <ToneMapping mode={ ToneMappingMode.LINEAR  } />
         </EffectComposer>
 
-      <Environment background environmentIntensity={20} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"}  />
+      <Environment background environmentIntensity={2} files={"assets/HDR_subdued_blue_nebulae_lower_res.hdr"}  />
       {/* Lights and shadows */}
       <SoftShadows size={debugObject.size} samples={debugObject.samples} focus={debugObject.focus} />
       <directionalLight
@@ -167,7 +167,7 @@ function TheDriving() {
         color={"cyan"}
         castShadow
         position={debugObject.sunPosition}
-        intensity={2}
+        intensity={1}
         shadow-mapSize={[1024, 1024]}
         shadow-camera-far={30}
         shadow-camera-near={0.1}
@@ -181,12 +181,12 @@ function TheDriving() {
         ref={directionalLight}
         color={"cyan"}
         position={debugObject.sunPosition2}
-        intensity={2}
+        intensity={1}
         
       />
       
       {/* <ambientLight color={"white"} intensity={3} /> */}
-      <hemisphereLight intensity={3} groundColor={0xcc5500} color={"blue"} />
+      <hemisphereLight intensity={1} groundColor={0xcc5500} color={"blue"} />
       {/* <mesh castShadow position={[10,10,20]} scale={10}>
       <boxGeometry />
       <meshStandardMaterial />
