@@ -11,12 +11,13 @@ export default function preload() {
     useLoader.preload(AudioLoader, "audio/427504__solarphasing__industrial-noises-ambient-sound-1_v2.mp3");
     useLoader.preload(AudioLoader, "audio/47631__jovica__space-sweep-11_v2.mp3");
     useLoader.preload(AudioLoader, "audio/521977__geistjon__drone-and-space-sounds-stylophone-gen-x-01_v2.mp3");
-
+    
     // hdri
-    useTexture.preload("assets/HDR_subdued_blue_nebulae_lower_res.hdr");
-
+    useTexture.preload("assets/HDR_subdued_blue_nebulae_low.exr");
+    
     // models
-    useGLTF.preload("/models/spaceship_V2.glb");
+    useGLTF.preload("models/spaceship_V3_UV_v3.glb");
+    useTexture.preload("assets/spaceship/spaceship_normal_v2.jpg")
 
     /* FINAL DESTINATION SCENE */
     // textures

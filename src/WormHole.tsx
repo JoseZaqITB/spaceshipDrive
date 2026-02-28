@@ -28,7 +28,7 @@ export default function WormHole(props: SpaceDistorsionProps) {
 
 
     return <mesh {...props}>
-        <torusGeometry args={[4.8,1.8]} />
+        <planeGeometry args={[10,10]} />
         <primitive ref={wormHoleShader} object={new WormHoleShaderMaterial()} attach={"material"} />
     </mesh>
 }

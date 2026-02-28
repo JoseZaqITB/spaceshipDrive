@@ -50,14 +50,18 @@ float cnoise(vec2 P){
 }
 
 void main() {
-    float strength = (distance(vec2(0.0), vP.xy) / 5.0) - uTime * 0.1;
-    //float distorsion = random(vP.xy) * 2.0;
-    float distorsion = cnoise(vP.xy) + 30.0 ;
-    float lines = mod(strength * distorsion, 3.0  );
+    float strength = (distance(vec2(0.0), vP.xy) / 5.0) - uTime * 0.15;
+    // circular shape
+    float shape = 1.0 - distance(vUv, vec2(0.5));
+    shape = smoothstep(0.58, 0.68,shape);
 
-    vec3 color = mix(vec3(0.3,0.0,0.0), vec3(0.5,0.0,0.6), vec3(lines));
+    //float distorsion = random(vP.xy) * 2.0;
+    //float distorsion = cnoise(vP.xy) + 30.0 ;
+    //float lines = mod(strength * distorsion, 3.0  );
+
+    vec3 color = mix(vec3(0.0,0.0,0.0), vec3(0.8,0.0,0.0), vec3(strength));
     //lines = step(0.05,lines);
     //gl_FragColor = vec4(normalize(vec3(vP.x,vP.y,0.0)),1.0);
-    gl_FragColor = vec4(color,0.75);
+    gl_FragColor = vec4(color,shape);
 
 }

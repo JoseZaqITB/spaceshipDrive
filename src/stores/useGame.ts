@@ -1,27 +1,36 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { globals } from "../utils";
 
 type sceneType = "theDriving" | "finalDestination" | "launch";
 type phaseType = "driving" | "passing" | "end";
 
+type ButtonsType = {
+    interact: boolean,
+    powerUp: boolean,
+}
+
 type GameStoreType = {
+    buttons: ButtonsType,
     velocity: number,
-    timer: number,
     phase: phaseType,
     scene: sceneType,
     setVelocity: (velocity: number ) => void,
     setScene: (scene: sceneType ) => void,
     setPhase: (state: phaseType ) => void,
-    setTimer: (state: number ) => void,
+    setButtons: (state: ButtonsType ) => void,
 }
 
 export default create<GameStoreType>()(subscribeWithSelector((set) => ({
-    timer: 0,
-    velocity:0,
+    buttons: {
+        interact: false,
+        powerUp: false,
+    },
+    velocity: globals.INITIALVELOCITY,
     phase: "driving",
     scene: "launch",
     setVelocity: (velocity) => set({velocity}),
     setScene: (scene) => set({scene}),
-    setPhase: (phase) => set(phase === "end" ? {phase, scene: "finalDestination"} : {phase, scene: "theDriving"}),
-    setTimer: (timer) => set({timer: timer}),
+    setPhase: (phase) => set({phase}),
+    setButtons: (buttons) => set({buttons}),
 })))
