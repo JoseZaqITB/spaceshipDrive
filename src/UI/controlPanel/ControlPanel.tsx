@@ -1,24 +1,39 @@
 
 import useGame from "../../stores/useGame";
-import { useKeyboardControls } from "@react-three/drei";
 import VelocimeterUI from "../velocimeter/VelocimeterUI";
 import styles from "./ControlPanel.module.css";
 
 export default function ControlPanel() {
     const phase = useGame((state) => state.phase);
-        const powerUp = useKeyboardControls((state) => state.powerUp);
-        const interact = useKeyboardControls((state) => state.interact);
+    const buttons = useGame((state) => state.buttons);
+    const {interact, powerUp} = buttons;
+    
+    const setButtons = useGame((state) => state.setButtons);
+
+
     return (
         <div className={styles.controlPanelContainer}>
-            <ControlButton active={interact} enable={phase === "passing"} emoji="𖦹" keyBoard="E" onClick={() => { }} />
-            <ControlButton active={powerUp} enable={phase === "driving"} emoji="—͟͟͞͞★" keyBoard="Space" onClick={() => { }} />
+            <ControlButton 
+                active={interact} 
+                enable={phase === "passing"} 
+                emoji="𖦹" 
+                keyBoard="E" 
+                onClick={() => setButtons({interact: true, powerUp: false})} 
+                onLeave={() => setButtons({interact: false, powerUp: false})} />
+            <ControlButton 
+                active={powerUp} 
+                enable={phase === "driving"} 
+                emoji="⚡︎" 
+                keyBoard="Space" 
+                onClick={() => setButtons({interact: false, powerUp: true})}
+                onLeave={() => setButtons({interact: false, powerUp: false})} />
             <VelocimeterUIWrapper phase={phase} />  
         </div>
     );
 }
 
 
-function ControlButton({ enable, active, emoji, keyBoard, onClick }: { enable: boolean, active?: boolean, emoji: string, keyBoard: string, onClick: () => void }) {
+function ControlButton({ enable, active, emoji, keyBoard, onClick =  () => {}, onLeave = () => {} }: { enable: boolean, active?: boolean, emoji: string, keyBoard: string, onClick?: () => void, onLeave?: () => void }) {
     return (
         <button
             style={active ? {
@@ -29,7 +44,8 @@ function ControlButton({ enable, active, emoji, keyBoard, onClick }: { enable: b
                 backgroundColor: `var(--color-base)`
             } : {}}
             className={enable ? styles.controlButton : `${styles.controlButtonDisabled} ${styles.controlButton}`}
-            onClick={onClick}
+            onPointerDown={onClick}
+            onPointerUp={onLeave}
         >
             <div className={styles.emoji} >
                 {emoji}

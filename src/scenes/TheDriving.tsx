@@ -1,4 +1,4 @@
-import { Environment, CameraShake, SoftShadows, type ShakeController, useKeyboardControls } from "@react-three/drei"
+import { Environment, CameraShake, SoftShadows, type ShakeController } from "@react-three/drei"
 import { EffectComposer, ShockWave, ToneMapping} from "@react-three/postprocessing"
 import {ShockWaveEffect, ToneMappingMode} from "postprocessing"
 import Spaceship from "../Spaceship"
@@ -16,8 +16,6 @@ import PowerUpAudio from "../audioComponents/PowerUpAudio"
 
 function TheDriving() {
   const directionalLight = useRef(null);
-  // mobile support
-  const [mobilePowerUp, setMobilePowerUp] = useState(false);
   // store
   const phase = useGame((state) => state.phase);
   const setPhase = useGame((state) => state.setPhase);
@@ -40,7 +38,7 @@ function TheDriving() {
   const velocity = useGame((state) => state.velocity);
   const setVelocity = useGame((state) => state.setVelocity);
 
-  const [, getKeys] = useKeyboardControls();
+  const buttons = useGame((state) => state.buttons);
   // mouse movement
   const [isMouseActive, setIsMouseActive] = useState(false);
   const {camera, pointer} = useThree();
@@ -50,19 +48,7 @@ function TheDriving() {
     // listeners
     const onClick = () => setIsMouseActive(true);
     const onDown = (e:KeyboardEvent) => {  if(e.code === "Escape") setIsMouseActive(false)};
-
-    // mobile support
-    // detect if the user's device is a mobile
-    const onTouchUp = () => {
-      setMobilePowerUp(true);
-    };
-    const onTouchDown = () => {
-      setMobilePowerUp(false);
-    };
-    if(globals.isMobile ){
-      window.addEventListener("touchstart", onTouchUp);
-      window.addEventListener("touchend", onTouchDown);
-    }
+    
     // desktop support
     window.addEventListener("click", onClick);
     window.addEventListener("keydown", onDown);
@@ -70,11 +56,7 @@ function TheDriving() {
     return ()=> { 
       window.removeEventListener("click", onClick);
       window.removeEventListener("keydown", onDown);
-      // mobile support
-      if(globals.isMobile){
-        window.removeEventListener("touchstart", onTouchUp);
-        window.removeEventListener("touchend", onTouchDown);
-      }
+      
     }
   },[]);
 
@@ -103,10 +85,10 @@ function TheDriving() {
 
 
     /* velocity update */
-    const {powerUp, interact} = getKeys();
+    const {powerUp, interact} = buttons;
 
     /* power up feature */
-    if (powerUp || mobilePowerUp){
+    if (powerUp){
       setVelocity(velocity + (globals.MAXVELOCITY - velocity ) * globals.DEFAULT_ACCELERATION * delta);
     } else if(phase === "driving"){
       setVelocity(velocity + (globals.INITIALVELOCITY - velocity ) * globals.DEFAULT_ACCELERATION * delta);
